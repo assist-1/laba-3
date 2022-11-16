@@ -56,4 +56,4 @@ Alice's Adventures in Wonderland is a children's novel.
 
 ```
 
-Для обоих вариантов создать `Makefile` с возможностью сборки, `clean` и `distclean`, в случае использования `gtest`, использовать систему `CMake`. 
+## Для обоих вариантов создать `Makefile` с возможностью сборки, `clean` и `distclean`, в случае использования `gtest`, использовать систему `CMake`. 
