@@ -55,6 +55,15 @@ The title is usually shortened to Alice in Wonderland.
 Alice's Adventures in Wonderland is a children's novel.
 
 ```
+ Чтобы получить оценку 9, необходимо в отдельный файл `NINE.txt` выписать самое длинное предложение и не используя средств языка `C++` перевернуть его, не переворачивая слова. То есть:
+```
+Пример ввода:
+... (тут какие-то короткие предложения)
+I love bananas
+
+Вывод:
+bananas love I
+```
 
 ## Для обоих вариантов создать `Makefile` с возможностью сборки, `clean` и `distclean`. В случае использования `gtest`, использовать систему `CMake`. 
 
