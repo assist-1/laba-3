@@ -5,6 +5,10 @@ int length;
 double *start;
 double *end;
 
+void usage() {
+    std::cout << "USAGE" << std::endl;
+}
+
 int read() {
     std::cin >> length;
     if (std::cin.fail() || length < 0) {
@@ -123,20 +127,11 @@ int solver(int file = 0, char const file_name[] = "no") {
     if (!file)  print(cs, ce, seg_ind++);
     else if    (print(cs, ce, seg_ind++, f)) return 1;
 
-    if (file) f.close();
+    f.close();
 
     delete[] start;
     delete[] end;
 
     return 0;
 }
-
-int main() {
-    if (read("input.txt"))
-        return 1;
-    solver(1, "output.txt");
-
-    return 0;
-}
-
 
