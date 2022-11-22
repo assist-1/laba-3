@@ -26,20 +26,46 @@ int read() {
     return 0;
 }
 
-int read_f(char *file_name) {
+int read(char const* file_name) {
     std::ifstream file;
     file.open(file_name);
+    if (!file.is_open()) {
+        std::cerr << "### Input file does not exist ###\n";
+        return 1;
+    }
 
     file >> length;
-    /* ДОПИСАТЬ */
+    if (file.fail() || length < 0) {
+        std::cerr << "### Wrong number of segments ###\n";
+        return 1;
+    }
+
+    start = new double[length];
+    end = new double[length];
+
+    for (int i = 0; i < length; ++i) {
+        file >> start[i] >> end[i];
+        if (file.fail()) {
+            std::cerr << "### Wrong segment cooridante(s) ###\n";
+            return 1;
+        }
+    }
+    file.close();
+
     return 0;
 }
 
-void print(double cs, double ce, int seg_ind) {
-    std::cout << "Segment " << seg_ind++ << ": "
+int print(double cs, double ce, int seg_ind) {
+    std::cout << "Segment " << seg_ind << ": "
               << cs << '\t' << ce << std::endl;
+    return 0;
 }
 
+int print(double cs, double ce, int seg_ind, std::ofstream& file) {
+    file << "Segment " << seg_ind << ": "
+              << cs << '\t' << ce << '\n';
+    return 0;
+}
 
 double max(double i, double k) {
     if (i > k) return i;
@@ -67,7 +93,15 @@ void sort() {
     }
 }
 
-int solver(int file = 0) {
+int solver(int file = 0, char const file_name[] = "no") {
+    std::ofstream f;
+    if (file) {
+        f.open(file_name);
+        if (!f.is_open()) {
+            std::cerr << "### Output file does not exist ###\n";
+            return 1;
+        }
+    }
     sort();
 
     int seg_ind = 1;
@@ -80,19 +114,27 @@ int solver(int file = 0) {
         if (start[i] >= cs && start[i] <= ce)
             ce = max(ce, end[i]);
         else {
-            if (!file) print(cs, ce, seg_ind++);
+            if (!file)  print(cs, ce, seg_ind++);
+            else if    (print(cs, ce, seg_ind++, f)) return 1;
             cs = start[i]; ce = end[i];
         }
     }
 
-    if (!file) print(cs, ce, seg_ind++);
+    if (!file)  print(cs, ce, seg_ind++);
+    else if    (print(cs, ce, seg_ind++, f)) return 1;
+
+    if (file) f.close();
+
+    delete[] start;
+    delete[] end;
+
     return 0;
 }
 
 int main() {
-    if (read())
+    if (read("input.txt"))
         return 1;
-    solver();
+    solver(1, "output.txt");
 
     return 0;
 }
