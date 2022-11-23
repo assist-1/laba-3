@@ -20,6 +20,10 @@ int main(int argc, char* argv[])
             flag_read = 1;
             allright(argv);
         }
+        else {
+            std::cout << "ERROR! Flags are not correct" << std::endl;
+            return -1;
+        }
     }
     else {
         if (!strcmp(argv[3], "--tofile") && !strcmp(argv[1], "--fromfile")) {
