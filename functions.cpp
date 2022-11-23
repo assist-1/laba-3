@@ -107,20 +107,9 @@ void sort() {
 }
 
 int solver(int file, const char file_name[]) {
-    /* std::ofstream f;
-    if (file) {
-        f.open(file_name);
-        if (!f.is_open()) {
-            std::cerr << "### Output file does not exist ###\n";
-            return 1;
-        }
-    } */
     sort();
 
     int seg_ind = 1;
-
-    // if (!length) return 1;
-    
     double cs = start[0]; double ce = end[0];
     for (int i = 1; i < length; ++i) {
         if (start[i] >= cs && start[i] <= ce)
@@ -137,7 +126,6 @@ int solver(int file, const char file_name[]) {
     if (!file)  print(cs, ce, seg_ind++);
     else if    (print(cs, ce, seg_ind++, file_name)) return 1;
 
-    // if (file) f.close();
     return 0;
 }
 
