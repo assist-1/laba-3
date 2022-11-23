@@ -38,19 +38,20 @@ int TaskFromFile(std::ifstream &file) {
     if (!file.is_open()) {
         return -1;
     }
-    int count;
+
     char symbol = file.peek();
     if (!(symbol >= '1' && symbol <= '9')) {
         std::cerr << "Incorrect enter" << std::endl;
         return -1;
     }
+    int count;
     file >> count;
     double *arrBegin = new double[count + 1];
     double *arrEnd = new double[count + 1];
     double a;
     double b;
     int i = 0;
-    while (file) {
+    while (i < count && file) {
         file >> a >> b;
         if (a >= b) {
             std::cerr << "Incorrect enter" << std::endl;
@@ -133,7 +134,7 @@ int TaskFromToFile(std::fstream &file) {
     double a;
     double b;
     int i = 0;
-    while (file) {
+    while (i < count && file) {
         file >> a >> b;
         if (a >= b) {
             std::cerr << "Incorrect enter" << std::endl;
