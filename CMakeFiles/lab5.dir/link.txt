@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/lab5.dir/main.cpp.o CMakeFiles/lab5.dir/func.cpp.o -o lab5 

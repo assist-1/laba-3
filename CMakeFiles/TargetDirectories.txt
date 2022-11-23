@@ -1,0 +1,3 @@
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/lab5.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/edit_cache.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/rebuild_cache.dir
