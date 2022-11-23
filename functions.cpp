@@ -11,7 +11,7 @@ void usage() {
 
 int read() {
     std::cin >> length;
-    if (std::cin.fail() || length < 0) {
+    if (std::cin.fail() || length <= 0) {
         std::cerr << "### Wrong number of segments ###\n";
         return 1;
     }
@@ -23,6 +23,8 @@ int read() {
         std::cin >> start[i] >> end[i];
         if (std::cin.fail()) {
             std::cerr << "### Wrong segment cooridante(s) ###\n";
+            delete[] start;
+            delete[] end;
             return 1;
         }
     }
@@ -30,7 +32,7 @@ int read() {
     return 0;
 }
 
-int read(char const* file_name) {
+int read(char* file_name) {
     std::ifstream file;
     file.open(file_name);
     if (!file.is_open()) {
@@ -39,7 +41,7 @@ int read(char const* file_name) {
     }
 
     file >> length;
-    if (file.fail() || length < 0) {
+    if (file.fail() || length <= 0) {
         std::cerr << "### Wrong number of segments ###\n";
         return 1;
     }
@@ -65,9 +67,16 @@ int print(double cs, double ce, int seg_ind) {
     return 0;
 }
 
-int print(double cs, double ce, int seg_ind, std::ofstream& file) {
-    file << "Segment " << seg_ind << ": "
+int print(double cs, double ce, int seg_ind, const char file_name[]) {
+    std::ofstream file;
+    file.open(file_name, std::ios_base::app);
+    if (!file.is_open()) {
+        std::cerr << "### Output file does not exist ###\n";
+        return 1;
+    }
+    file << "Segment " << seg_ind << ": " 
               << cs << '\t' << ce << '\n';
+    file.close();
     return 0;
 }
 
@@ -97,21 +106,20 @@ void sort() {
     }
 }
 
-int solver(int file = 0, char const file_name[] = "no") {
-    std::ofstream f;
+int solver(int file, const char file_name[]) {
+    /* std::ofstream f;
     if (file) {
         f.open(file_name);
         if (!f.is_open()) {
             std::cerr << "### Output file does not exist ###\n";
             return 1;
         }
-    }
+    } */
     sort();
 
     int seg_ind = 1;
-    int flag = 0;
 
-    if (!length) return 1;
+    // if (!length) return 1;
     
     double cs = start[0]; double ce = end[0];
     for (int i = 1; i < length; ++i) {
@@ -119,19 +127,17 @@ int solver(int file = 0, char const file_name[] = "no") {
             ce = max(ce, end[i]);
         else {
             if (!file)  print(cs, ce, seg_ind++);
-            else if    (print(cs, ce, seg_ind++, f)) return 1;
+            else if    (print(cs, ce, seg_ind++, file_name)) return 1;
             cs = start[i]; ce = end[i];
         }
     }
-
-    if (!file)  print(cs, ce, seg_ind++);
-    else if    (print(cs, ce, seg_ind++, f)) return 1;
-
-    f.close();
-
     delete[] start;
     delete[] end;
 
+    if (!file)  print(cs, ce, seg_ind++);
+    else if    (print(cs, ce, seg_ind++, file_name)) return 1;
+
+    // if (file) f.close();
     return 0;
 }
 

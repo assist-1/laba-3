@@ -6,7 +6,8 @@ int main(int argc, char ** argv) {
     switch (argc) {
         case 1:
             if (read()) exit(1);
-            solver(0, "no");
+            solver(0, "NO");
+            break;
         case 3:
             if (!strcmp("--tofile", argv[1])) {
                 if (read()) exit(1);
@@ -14,14 +15,14 @@ int main(int argc, char ** argv) {
             }
             else if (!strcmp("--fromfile", argv[1])) {
                 if (read(argv[2])) exit(1);
-                solver(0, "no");
+                solver(0, "NO");
             }
             else {
                 std::cerr << "### Wrong flags ###\n";
                 usage();
                 exit(1);
             }
-            exit(0);
+            break;
         case 5:
             if (!strcmp("--fromfile", argv[1]) && 
                 !strcmp("--tofile", argv[3])) {
@@ -38,10 +39,11 @@ int main(int argc, char ** argv) {
                 usage();
                 exit(1);
             }
-            exit(0);
+            break;
         default:
             std::cerr << "### Wrong flags 1 ###\n";
             usage();
             exit(1);
     }
+    exit(0);
 }

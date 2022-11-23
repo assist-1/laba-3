@@ -1,10 +1,15 @@
 #ifndef FUNCS
 #define FUNCS
 
-int read();
-int read(char const *);
+/* Variables */
+// double* start;
+// double* end  ;
 
-int solver(int, char const *);
+/* Functions */
+int read()     ;
+int read(char*);
+
+int solver(int, const char []);
 
 void usage();
 
