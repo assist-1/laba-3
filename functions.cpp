@@ -1,14 +1,34 @@
 #include <iostream>
 #include <fstream>
 
-int length;
-double *start;
-double *end;
+int length; ///< Количество отрезков
+double *start; ///< Массив начал отрезков
+double *end; ///< Массив концов отрезков
 
+/**
+ * \brief Выводит в консоль справку.
+ *
+ * Функция вызывается, если пользователь неверно ввел флаги при запуске программы.
+ */
 void usage() {
-    std::cout << "USAGE" << std::endl;
+    std::cout << std::endl;
+    std::cout << "USAGE: ./prog [--tofile <file_name>] [--fromfile <file_name>]" << std::endl;
+    std::cout << std::endl;
+    std::cout << "-------------------------Flags meaning-----------------------" << std::endl;
+    std::cout << "--tofile   ------> write output data in file"                  << std::endl;
+    std::cout << "--fromfile ------> read input data from file"                  << std::endl;
+    std::cout << std::endl;
 }
 
+/**
+ * \brief Осуществляет чтение из станадртного потока cin.
+ * \return 0 - функция выполнена успешно
+ * 1 - обнаружна ошибка ввода
+ *
+ * Функция выполняет чтение данных из стандартного потока cin в массивы start[] и end[].
+ * Длина массивов задается в процессе выполнения функции.
+ * Если произошла ошибка ввода, то выведется соответствующее сообщение, и функция прекратит свое выполнение.
+ */
 int read() {
     std::cin >> length;
     if (std::cin.fail() || length <= 0) {
@@ -32,6 +52,17 @@ int read() {
     return 0;
 }
 
+/**
+ * \brief Осуществляет чтение из файла.
+ * \param[in] file_name - имя файла
+ * \return 0 - функция выполнена успешно
+ * 1 - обнаружна ошибка
+ *
+ * Функция выполняет чтение данных из файла в массивы start[] и end[].
+ * Длина массивов задается в процессе выполнения функции.
+ * Если произошла ошибка ввода или файл не удалось открыть,
+ * то выведется соответствующее сообщение, и функция прекратит свое выполнение.
+ */
 int read(char* file_name) {
     std::ifstream file;
     file.open(file_name);
@@ -61,12 +92,34 @@ int read(char* file_name) {
     return 0;
 }
 
+/**
+ * \brief Осуществляет вывод результата в стандартный поток cout.
+ * \param[in] cs - координата начала отрезка
+ * \param[in] ce - координата конца отрезка
+ * \param[in] seg_ind - номер отрезка
+ * \return 0 - функция выполнена успешно
+ *
+ * Функция выводит в стандартный поток cout номер сегмента, считая слева, и его координаты.
+ */
 int print(double cs, double ce, int seg_ind) {
     std::cout << "Segment " << seg_ind << ": "
               << cs << '\t' << ce << std::endl;
     return 0;
 }
 
+/**
+ * \brief Осуществляет вывод результата в файл.
+ * \param[in] cs - координата начала отрезка
+ * \param[in] ce - координата конца отрезка
+ * \param[in] seg_ind - номер отрезка
+ * \param[in] file_name - имя файла
+ * \return 0 - функция выполнена успешно
+ * 1 - обнаружена ошибка
+ *
+ * Функция выводит в файл номер сегмента, считая слева, и его координаты.
+ * Если файл не существует, то выведется соответствующее значение и функция
+ * прекратит свое выполнение.
+ */
 int print(double cs, double ce, int seg_ind, const char file_name[]) {
     std::ofstream file;
     file.open(file_name, std::ios_base::app);
@@ -80,11 +133,22 @@ int print(double cs, double ce, int seg_ind, const char file_name[]) {
     return 0;
 }
 
+/**
+ * \brief Возвращает максимальное значение из полученных.
+ * \param[in] i, k - переменные для осуществления сравнения
+ * \return максимальное значене
+ */
 double max(double i, double k) {
     if (i > k) return i;
     return k;
 }
 
+/**
+ * \brief меняет местам элементы глобальных массивов.
+ * \param[in] i, j - индексы элементов
+ *
+ * Меняет местами i-ый и j-ый элементы сначала массива start[], затем массива end[].
+ */
 void swap(int i, int j) {
     double tmp;
     tmp = start[i];
@@ -93,6 +157,12 @@ void swap(int i, int j) {
     end[i] = end[j]; end[j] = tmp;
 }
 
+/**
+ * \brief Сортирует массивы по возрастанию на основе значений элементов массива start[].
+ *
+ * Выполняет сортировку вставкой. Сортирует элементы массива start[] по возрастанию и переставляет
+ * соответствующие им элементы массива end[].
+ */
 void sort() {
     int mi;
     for (int i = 0; i < length - 1; ++i) {

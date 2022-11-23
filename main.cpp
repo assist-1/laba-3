@@ -41,7 +41,7 @@ int main(int argc, char ** argv) {
             }
             break;
         default:
-            std::cerr << "### Wrong flags 1 ###\n";
+            std::cerr << "### Wrong flags ###\n";
             usage();
             exit(1);
     }
