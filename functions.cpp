@@ -55,6 +55,8 @@ int TaskFromFile(std::ifstream &file) {
         file >> a >> b;
         if (a >= b) {
             std::cerr << "Incorrect enter" << std::endl;
+            delete[] arrEnd;
+            delete[] arrBegin;
             return -1;
         }
         arrBegin[i] = a;
@@ -65,6 +67,8 @@ int TaskFromFile(std::ifstream &file) {
     MainFunction(arrBegin, arrEnd, count, k);
     if (!k) {
         std::cerr << "NOTHING FOUND" << std::endl;
+        delete[] arrEnd;
+        delete[] arrBegin;
         return -2;
     }
     std::cout << arrBegin[0] << " " << arrEnd[0] << std::endl;
@@ -95,6 +99,8 @@ int TaskToFile(std::ofstream &file) {
         std::cin >> a >> b;
         if (a >= b) {
             std::cerr << "Incorrect enter" << std::endl;
+            delete[] arrEnd;
+            delete[] arrBegin;
             return -1;
         }
         arrBegin[i] = a;
@@ -105,6 +111,8 @@ int TaskToFile(std::ofstream &file) {
     MainFunction(arrBegin, arrEnd, count, k);
     if (!k) {
         std::cerr << "NOTHING FOUND" << std::endl;
+        delete[] arrEnd;
+        delete[] arrBegin;
         return -2;
     }
     file << arrBegin[0] << " " << arrEnd[0] << std::endl;
@@ -138,6 +146,8 @@ int TaskFromToFile(std::fstream &file) {
         file >> a >> b;
         if (a >= b) {
             std::cerr << "Incorrect enter" << std::endl;
+            delete[] arrEnd;
+            delete[] arrBegin;
             return -1;
         }
         arrBegin[i] = a;
@@ -148,6 +158,8 @@ int TaskFromToFile(std::fstream &file) {
     MainFunction(arrBegin, arrEnd, count, k);
     if (!k) {
         std::cerr << "NOTHING FOUND" << std::endl;
+        delete[] arrEnd;
+        delete[] arrBegin;
         return -2;
     }
     file << arrBegin[0] << " " << arrEnd[0] << std::endl;
