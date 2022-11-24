@@ -84,7 +84,7 @@ void GetResultFromConsole() {
 	std::cin >> NUM_SEGMENTS;
 	float segments[NUM_SEGMENTS][2];
 
-	for(int i = 0; i < 0; i++) {
+	for(int i = 0; i < NUM_SEGMENTS; i++) {
 		std::cin.getline(stream, STREAM_SIZE - 1);
 		index_stream = 0;
 		while(token = stream[index_stream++]) {
@@ -105,14 +105,35 @@ void GetResultFromConsole() {
 					exit(1);
 				}
 			}
+			else if(IsDigit(token)) {
+				number1 = GetNumber(1);
+			}
+			else if(IsSpace(token)) {
+				if((IsMinus(stream[index_stream + 1]) && IsDigit(stream[index_stream + 2])) || IsDigit(stream[index_stream + 1])) {
+					token = stream[++index_stream];
+					if(IsMinus(token)) {
+						index_stream++;
+						number2 = GetNumber(0);
+					}
+					else if(IsDigit(token)) {
+						number2 = GetNumber(1);
+					}
+				}
+				else {
+					std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
+					exit(1);
+				}
+			}
 
 		}
+		segments[i][0] = number1;
+		segments[i][1] = number2;
+	}
+	for(int i = 0; i < NUM_SEGMENTS; i++) {
+		for(int j = 0;j < 2; j++)
+			std::cout << segments[i][j] << ' ';
+		std::cout << '\n';
 	}
 
-
 }
 
-
-void ReadingFromFile() {
-
-}
