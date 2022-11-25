@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <cmath>
 
 const int STREAM_SIZE = 32;
@@ -39,15 +40,19 @@ double GetNumber(int positive) {
 	double whole_part    = 0;
 	double decimal_part  = 0;
 	int    count_decimal = 0;
+	int    empty         = 0;
 	while(IsDigit(stream[index_stream]))
 		whole_part = whole_part * 10 + (stream[index_stream++] - '0');
-
 	if(IsPoint(stream[index_stream])) {
 		if(IsDigit(stream[index_stream + 1])) {
 			index_stream++;
 			while(IsDigit(stream[index_stream])) {
-				decimal_part = decimal_part * 10 + (stream[index_stream++] - '0');
+				empty = empty * 10 + (stream[index_stream++] - '0');
 				count_decimal++;
+				if(count_decimal > 2) {
+					std::cerr << "ERROR: incorrect number of decimal places!" << std::endl;
+					exit(1);
+				}
 			}
 		}
 		else {
@@ -55,15 +60,10 @@ double GetNumber(int positive) {
 			exit(1);
 		}
 	}
-	else if(IsSpace(stream[index_stream]) || !stream[index_stream]) {
-		decimal_part = decimal_part / pow(10, count_decimal);
-		if(ceil(trunc(decimal_part * 100))) {
-			std::cerr << "ERROR: incorrect number of decimal places!" << std::endl;
-			exit(1);
-		}
-	}
+	if(IsSpace(stream[index_stream]) || !stream[index_stream])
+		decimal_part = empty / pow(10, count_decimal);
 	else {
-		std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
+		std::cerr << "ERROR: number must be separated by a space!" << std::endl;
 		exit(1);
 	}
 
@@ -161,13 +161,13 @@ void GetResultFromConsole() {
 	std::cout << "Result:" << std::endl;
 	double glob_start = starts[0];
 	double glob_end   = ends[0];
-	if(NUM_SEGMENTS = 1) {
+	if(NUM_SEGMENTS == 1) {
 		std::cout << glob_start << " " << glob_end << std::endl;
 	}
 	else {
 		for(int i = 1; i < NUM_SEGMENTS; i++) {
 			if(starts[i] <= glob_end) {
-				glob_end = GetMax(glob_end, ends[i])
+				glob_end = GetMax(glob_end, ends[i]);
 			}
 			
 			else {
@@ -181,3 +181,6 @@ void GetResultFromConsole() {
 
 }
 
+void GetResultFromFile() {
+	
+}
