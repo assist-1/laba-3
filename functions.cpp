@@ -1,15 +1,14 @@
 #include <iostream>
 #include <cmath>
-//incorrect number of decimal places
-const int STREAM_SIZE = 32;
 
-char     stream[STREAM_SIZE];
-double * starts;
-double * ends;
-int      index_stream;
-char     token;
-double   number1 = 0;
-double   number2 = 0;
+const int STREAM_SIZE = 32;
+char      stream[STREAM_SIZE];
+double *  starts;
+double *  ends;
+int       index_stream;
+char      token;
+double    number1 = 0;
+double    number2 = 0;
 
 int IsDigit(char symbol) {
 	if(symbol >= '0' && symbol <= '9') return 1;
@@ -72,12 +71,38 @@ double GetNumber(int positive) {
 		return (whole_part + decimal_part);
 	return -(whole_part + decimal_part);
 }
-
+double GetMax(double a, double b) {
+	if(a > b) return a;
+	return b;
+}
+void SortSegments(int segments_count) {
+	for(int i = 0; i < segments_count; i++) {
+		double max_start = -10000000000;
+		int index_max = 0;
+		double empty;
+		for(int j = 0; j < segments_count - i; j++) {
+			if(starts[j] > max_start) {
+				max_start = starts[j];
+				index_max = j;
+			}
+		}
+		empty = starts[segments_count-1-i];
+		starts[segments_count-1-i] = starts[index_max];
+		starts[index_max] = empty;
+		empty = ends[segments_count-1-i];
+		ends[segments_count-1-i] = ends[index_max];
+		ends[index_max] = empty;
+	}
+}
 
 void GetResultFromConsole() {
 	int NUM_SEGMENTS;
 	std::cin >> NUM_SEGMENTS;
 	std::cin.ignore();
+	if(NUM_SEGMENTS <= 0) {
+		std::cerr << "ERROR: You must enter a positive number of segments!" << std::endl;
+		exit(1);
+	}
 	starts = new double[NUM_SEGMENTS];
 	ends   = new double[NUM_SEGMENTS];
 	for(int i = 0; i < NUM_SEGMENTS; i++) {
@@ -121,13 +146,38 @@ void GetResultFromConsole() {
 					exit(1);
 				}
 			}
-
 		}
-		starts[i] = number1;
-		ends[i]   = number2;
+		if(!IsSegment(number1, number2)) {
+			std::cerr << "ERROR: the beginning of the segment must be less than the end!" << std::endl;
+			exit(1);
+		}
+		else {
+			starts[i] = number1;
+			ends[i]   = number2;
+		}
+	}
+	SortSegments(NUM_SEGMENTS);
+
+	std::cout << "Result:" << std::endl;
+	double glob_start = starts[0];
+	double glob_end   = ends[0];
+	if(NUM_SEGMENTS = 1) {
+		std::cout << glob_start << " " << glob_end << std::endl;
+	}
+	else {
+		for(int i = 1; i < NUM_SEGMENTS; i++) {
+			if(starts[i] <= glob_end) {
+				glob_end = GetMax(glob_end, ends[i])
+			}
+			
+			else {
+				std::cout << glob_start << " " << glob_end << std::endl;
+				glob_start = starts[i];
+				glob_end   = ends[i];
+			}
+		}
+		std::cout << glob_start << " " << glob_end << std::endl;
 	}
 
-
-	std::cout << std::endl;
 }
 
