@@ -43,6 +43,11 @@ int main(int argc, char ** argv) {
             if (read()) exit(1);
             solver(0, "NO");
             break;
+        case 2:
+            if (strcmp("--help", argv[1]))
+                exit(1);
+            usage();
+            break;
         case 3:
             if (!strcmp("--tofile", argv[1])) {
                 if (read()) exit(1);
