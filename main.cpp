@@ -6,8 +6,7 @@
 int main(int argc, char** argv) {
     if (checkflag(argc, argv) == 0)
         return 0;
-    int n, flag = 0, i = 0;
-    int &f = flag;
+    int n, i = 0;
     std::ifstream fin("input.txt");
     if (argc == 1 || argc == 2 && strcmp(argv[1], "--fromfile"))
         std::cin >> n;
@@ -26,6 +25,6 @@ int main(int argc, char** argv) {
     sortmas(seg, n);
     if (checkmas(seg, n) == 0)
       return 0;
-    conjunction(seg, n, f, argc, argv);
+    conjunction(seg, n, argc, argv);
     delete []seg;
 }

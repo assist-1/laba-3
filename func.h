@@ -3,7 +3,7 @@
 
 void sortmas(double*, int);
 
-void conjunction(double*, int, int&, int, char**);
+void conjunction(double*, int, int, char**);
 
 int checkflag(int, char**);
 
