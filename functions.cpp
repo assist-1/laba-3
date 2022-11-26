@@ -12,6 +12,10 @@ char      token;
 double    number1 = 0;
 double    number2 = 0;
 
+void Help() {
+	std::cout << "\n";
+	std::cout << "INSTRUCTION" << std::endl;
+}
 int IsDigit(char symbol) {
 	if(symbol >= '0' && symbol <= '9') return 1;
 	return 0;
@@ -117,7 +121,7 @@ void SortSegments(int segments_count) {
 		ends[index_max] = empty;
 	}
 }
-void ConvertToSegments(int index) {
+void ConvertToSegments(int index_segments) {
 	index_stream = 0;
 	while(token = stream[index_stream++]) {
 		if(!IsCorrectSymbol(token)) {
@@ -162,47 +166,59 @@ void ConvertToSegments(int index) {
 		exit(1);
 	}
 	else {
-		starts[index] = number1;
-		ends[index]   = number2;
+		starts[index_segments] = number1;
+		ends[index_segments]   = number2;
 	}
 }
-void GetResultFromConsole() {
-	std::cin.getline(stream, STREAM_SIZE - 1); // водим вол-во отрезков
-	int NUM_SEGMENTS = GetNumberSegments();
-	starts = new double[NUM_SEGMENTS];
-	ends   = new double[NUM_SEGMENTS];
-	for(int i = 0; i < NUM_SEGMENTS; i++) {
-		std::cin.getline(stream, STREAM_SIZE - 1);
-		ConvertToSegments(i);
-	}
-	SortSegments(NUM_SEGMENTS);
-
-	std::cout << "\n";
-	std::cout << "RESULT:" << std::endl;
-	std::cout << "\n";
+void SolutionToConsole(int segments_count) {
+	std::cout << "\nRESULT:\n" << std::endl;
 	double glob_start = starts[0];
 	double glob_end   = ends[0];
-	if(NUM_SEGMENTS == 1) {
-		std::cout << glob_start << " " << glob_end << std::endl;
+	int    count      = 1;
+	if(segments_count == 1) {
+		std::cout << count << ") " << glob_start << " " << glob_end << std::endl;
 	}
 	else {
-		for(int i = 1; i < NUM_SEGMENTS; i++) {
+		for(int i = 1; i < segments_count; i++) {
 			if(starts[i] <= glob_end) {
 				glob_end = GetMax(glob_end, ends[i]);
 			}
 			
 			else {
-				std::cout << glob_start << " " << glob_end << std::endl;
+				std::cout << count++ << ") " << glob_start << " " << glob_end << std::endl;
 				glob_start = starts[i];
 				glob_end   = ends[i];
 			}
 		}
-		std::cout << glob_start << " " << glob_end << std::endl;
+		std::cout << count << ") " << glob_start << " " << glob_end << std::endl;
 	}
-	delete[] starts;
-	delete[] ends;
 }
-void GetResultFromConsole(const char * namefile) {
+void SolutionToFile(const char * nametofile, int segments_count) {
+	std::ofstream ToFile(nametofile);
+	ToFile << "RESULT:\n" << std::endl;
+	double glob_start = starts[0];
+	double glob_end   = ends[0];
+	int    count      = 1;
+	if(segments_count == 1) {
+		ToFile << count << ") " << glob_start << " " << glob_end << std::endl;
+	}
+	else {
+		for(int i = 1; i < segments_count; i++) {
+			if(starts[i] <= glob_end) {
+				glob_end = GetMax(glob_end, ends[i]);
+			}
+			else {
+				ToFile << count++ << ") " << glob_start << " " << glob_end << std::endl;
+				glob_start = starts[i];
+				glob_end   = ends[i];
+			}
+		}
+		ToFile << count << ") " << glob_start << " " << glob_end << std::endl;
+	}
+	ToFile.close();
+}
+
+void GetResultFromConsole() {  // из консоли в консоль
 	std::cin.getline(stream, STREAM_SIZE - 1); // водим вол-во отрезков
 	int NUM_SEGMENTS = GetNumberSegments();
 	starts = new double[NUM_SEGMENTS];
@@ -212,6 +228,115 @@ void GetResultFromConsole(const char * namefile) {
 		ConvertToSegments(i);
 	}
 	SortSegments(NUM_SEGMENTS);
-	
+	SolutionToConsole(NUM_SEGMENTS);
+	delete[] starts;
+	delete[] ends;
+}
 
+void GetResultFromConsole(const char * nametofile, int is_name_file) { // из консоли в файл
+	std::cin.getline(stream, STREAM_SIZE - 1); // водим вол-во отрезков
+	int NUM_SEGMENTS = GetNumberSegments();
+	starts = new double[NUM_SEGMENTS];
+	ends   = new double[NUM_SEGMENTS];
+	for(int i = 0; i < NUM_SEGMENTS; i++) {
+		std::cin.getline(stream, STREAM_SIZE - 1);
+		ConvertToSegments(i);
+	}
+	SortSegments(NUM_SEGMENTS);
+
+	if(is_name_file) {
+		std::ifstream check(nametofile);
+		if(check.is_open()) {
+			check.close();
+			SolutionToFile(nametofile, NUM_SEGMENTS);
+			std::cout << "-COMMAND COMPLETED-" << std::endl;
+			delete[] starts;
+			delete[] ends;
+		}
+		else {
+			check.close();
+			delete[] starts;
+			delete[] ends;
+			std::cerr << "ERROR: file for output not found, You must create it or enter right!" << std::endl;
+			exit(1);
+		}
+	}
+	else {
+		SolutionToFile(nametofile, NUM_SEGMENTS);
+		std::cout << "-COMMAND COMPLETED-" << std::endl;
+		delete[] starts;
+		delete[] ends;
+	}
+}
+
+void GetResultFromFile(const char * namefromfile) { // из файла в консоль
+	std::ifstream FromFile(namefromfile);
+	if(FromFile.is_open()) {
+		FromFile.getline(stream, STREAM_SIZE - 1);
+		int NUM_SEGMENTS = GetNumberSegments();
+		starts = new double[NUM_SEGMENTS];
+		ends   = new double[NUM_SEGMENTS];
+		for(int i = 0; i < NUM_SEGMENTS; i++) {
+			FromFile.getline(stream, STREAM_SIZE - 1);
+			ConvertToSegments(i);
+		}
+		SortSegments(NUM_SEGMENTS);
+		SolutionToConsole(NUM_SEGMENTS);
+		FromFile.close();
+		delete[] starts;
+		delete[] ends;
+	}
+	else {
+		FromFile.close();
+		delete[] starts;
+		delete[] ends;
+		std::cout << "ERROR: file for input not found, You must create it or enter right!" << std::endl;
+		exit(1);
+	}
+}
+
+void GetResultFromFile(const char * namefromfile, const char * nametofile, int is_name_file) { // из файла в файл
+	std::ifstream FromFile(namefromfile);
+	if(FromFile.is_open()) {
+		FromFile.getline(stream, STREAM_SIZE - 1);
+		int NUM_SEGMENTS = GetNumberSegments();
+		starts = new double[NUM_SEGMENTS];
+		ends   = new double[NUM_SEGMENTS];
+		for(int i = 0; i < NUM_SEGMENTS; i++) {
+			FromFile.getline(stream, STREAM_SIZE - 1);
+			ConvertToSegments(i);
+		}
+		SortSegments(NUM_SEGMENTS);
+
+		if(is_name_file) {
+			std::ifstream check(nametofile);
+			if(check.is_open()) {
+				check.close();
+				SolutionToFile(nametofile, NUM_SEGMENTS);
+				std::cout << "-COMMAND COMPLETED-" << std::endl;
+				delete[] starts;
+				delete[] ends;
+			}
+			else {
+				check.close();
+				delete[] starts;
+				delete[] ends;
+				std::cerr << "ERROR: file for output not found, You must create it or enter right!" << std::endl;
+				exit(1);
+			}
+		}
+		else {
+			SolutionToFile(nametofile, NUM_SEGMENTS);
+			std::cout << "-COMMAND COMPLETED-" << std::endl;
+			delete[] starts;
+			delete[] ends;
+		}
+	}
+	else {
+		FromFile.close();
+		delete[] starts;
+		delete[] ends;
+		std::cerr << "ERROR: file for input not found, You must create it or enter right!" << std::endl;
+		exit(1);
+	}
 }
