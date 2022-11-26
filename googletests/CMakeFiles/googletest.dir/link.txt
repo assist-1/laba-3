@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/googletest.dir/test.cpp.o -o googletest  -lgtest -lgtest_main -lpthread ../libfunc.h.a 

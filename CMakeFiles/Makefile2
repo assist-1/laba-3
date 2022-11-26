@@ -63,16 +63,61 @@ CMAKE_BINARY_DIR = /mnt/c/Users/proko/CLionProjects/lab5
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/func.h.dir/all
 all: CMakeFiles/lab5.dir/all
+all: googletests/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: googletests/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/func.h.dir/clean
 clean: CMakeFiles/lab5.dir/clean
+clean: googletests/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory googletests
+
+# Recursive "all" directory target.
+googletests/all: googletests/CMakeFiles/testing.dir/all
+.PHONY : googletests/all
+
+# Recursive "preinstall" directory target.
+googletests/preinstall:
+.PHONY : googletests/preinstall
+
+# Recursive "clean" directory target.
+googletests/clean: googletests/CMakeFiles/testing.dir/clean
+.PHONY : googletests/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/func.h.dir
+
+# All Build rule for target.
+CMakeFiles/func.h.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/func.h.dir/build.make CMakeFiles/func.h.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/func.h.dir/build.make CMakeFiles/func.h.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles --progress-num=1,2 "Built target func.h"
+.PHONY : CMakeFiles/func.h.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/func.h.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/func.h.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles 0
+.PHONY : CMakeFiles/func.h.dir/rule
+
+# Convenience name for target.
+func.h: CMakeFiles/func.h.dir/rule
+.PHONY : func.h
+
+# clean rule for target.
+CMakeFiles/func.h.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/func.h.dir/build.make CMakeFiles/func.h.dir/clean
+.PHONY : CMakeFiles/func.h.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/lab5.dir
@@ -81,7 +126,7 @@ clean: CMakeFiles/lab5.dir/clean
 CMakeFiles/lab5.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab5.dir/build.make CMakeFiles/lab5.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab5.dir/build.make CMakeFiles/lab5.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles --progress-num=1,2,3 "Built target lab5"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles --progress-num=3,4,5 "Built target lab5"
 .PHONY : CMakeFiles/lab5.dir/all
 
 # Build rule for subdir invocation for target.
@@ -99,6 +144,32 @@ lab5: CMakeFiles/lab5.dir/rule
 CMakeFiles/lab5.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab5.dir/build.make CMakeFiles/lab5.dir/clean
 .PHONY : CMakeFiles/lab5.dir/clean
+
+#=============================================================================
+# Target rules for target googletests/CMakeFiles/testing.dir
+
+# All Build rule for target.
+googletests/CMakeFiles/testing.dir/all: CMakeFiles/func.h.dir/all
+	$(MAKE) $(MAKESILENT) -f googletests/CMakeFiles/testing.dir/build.make googletests/CMakeFiles/testing.dir/depend
+	$(MAKE) $(MAKESILENT) -f googletests/CMakeFiles/testing.dir/build.make googletests/CMakeFiles/testing.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles --progress-num=6,7 "Built target testing"
+.PHONY : googletests/CMakeFiles/testing.dir/all
+
+# Build rule for subdir invocation for target.
+googletests/CMakeFiles/testing.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletests/CMakeFiles/testing.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles 0
+.PHONY : googletests/CMakeFiles/testing.dir/rule
+
+# Convenience name for target.
+testing: googletests/CMakeFiles/testing.dir/rule
+.PHONY : testing
+
+# clean rule for target.
+googletests/CMakeFiles/testing.dir/clean:
+	$(MAKE) $(MAKESILENT) -f googletests/CMakeFiles/testing.dir/build.make googletests/CMakeFiles/testing.dir/clean
+.PHONY : googletests/CMakeFiles/testing.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

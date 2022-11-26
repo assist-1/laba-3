@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testing.dir/test.cpp.o -o testing  -lgtest -lgtest_main -lpthread ../libfunc.h.a 
