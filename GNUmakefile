@@ -1,9 +1,11 @@
-answer:
-	g++ -o answer functions.o main.o
+OBJECTS=functions.o main.o
+
+answer: $(OBJECTS)
+	g++ -o answer $(OBJECTS)
 
 .PHONY: clean
 clean:
-	$(RM) functions.o main.o 
+	$(RM) $(OBJECTS)
 
 distclean: clean
 	$(RM) answer

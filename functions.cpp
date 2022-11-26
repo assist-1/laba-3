@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include <cmath>
 
 const int STREAM_SIZE = 32;
@@ -35,7 +36,6 @@ int IsSegment(double a, double b) {
 	if(a < b) return 1;
 	return 0;
 }
-
 double GetNumber(int positive) {
 	double whole_part    = 0;
 	double decimal_part  = 0;
@@ -75,6 +75,29 @@ double GetMax(double a, double b) {
 	if(a > b) return a;
 	return b;
 }
+int GetNumberSegments() {
+	int result;
+	if(token = stream[index_stream]) {
+		while(token = stream[index_stream++]) {
+			if(!IsDigit(token)) {
+				std::cerr << "ERROR: invalid characters in the natural number of segments input!" << std::endl;
+				exit(1);
+			}
+		}
+	}
+	else {
+		std::cerr << "ERROR: number of segments not entered!" << std::endl;
+		exit(1);
+	}
+	index_stream = 0;
+	result = int(GetNumber(1));
+	memset(stream, '\0', sizeof(stream));
+	if(result <= 0 || result > 10000) {
+		std::cerr << "ERROR: You must enter a natural number of segments not exceeding 10000!" << std::endl;
+		exit(1);
+	}
+	return result;
+}
 void SortSegments(int segments_count) {
 	for(int i = 0; i < segments_count; i++) {
 		double max_start = -10000000000;
@@ -94,71 +117,69 @@ void SortSegments(int segments_count) {
 		ends[index_max] = empty;
 	}
 }
-
-void GetResultFromConsole() {
-	int NUM_SEGMENTS;
-	std::cin >> NUM_SEGMENTS;
-	std::cin.ignore();
-	if(NUM_SEGMENTS <= 0) {
-		std::cerr << "ERROR: You must enter a positive number of segments!" << std::endl;
+void ConvertToSegments(int index) {
+	index_stream = 0;
+	while(token = stream[index_stream++]) {
+		if(!IsCorrectSymbol(token)) {
+			std::cerr << "ERROR: invalid character!" << std::endl;
+			exit(1);
+		}
+	}
+	index_stream = 0;
+	while(token = stream[index_stream++]) {
+		if(IsMinus(token)) {
+			if(IsDigit(stream[index_stream])) {
+				number1 = GetNumber(0);
+			}
+			else {
+				std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
+				exit(1);
+			}
+		}
+		else if(IsDigit(token)) {
+			index_stream--;
+			number1 = GetNumber(1);
+		}
+		else if(IsSpace(token)) {
+			if((IsMinus(stream[index_stream]) && IsDigit(stream[index_stream + 1])) || IsDigit(stream[index_stream])) {
+				token = stream[index_stream];
+				if(IsMinus(token)) {
+					index_stream++;
+					number2 = GetNumber(0);
+				}
+				else if(IsDigit(token)) {
+					number2 = GetNumber(1);
+				}
+			}
+			else {
+				std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
+				exit(1);
+			}
+		}
+	}
+	if(!IsSegment(number1, number2)) {
+		std::cerr << "ERROR: the beginning of the segment must be less than the end!" << std::endl;
 		exit(1);
 	}
+	else {
+		starts[index] = number1;
+		ends[index]   = number2;
+	}
+}
+void GetResultFromConsole() {
+	std::cin.getline(stream, STREAM_SIZE - 1); // водим вол-во отрезков
+	int NUM_SEGMENTS = GetNumberSegments();
 	starts = new double[NUM_SEGMENTS];
 	ends   = new double[NUM_SEGMENTS];
 	for(int i = 0; i < NUM_SEGMENTS; i++) {
 		std::cin.getline(stream, STREAM_SIZE - 1);
-		index_stream = 0;
-		while(token = stream[index_stream++]) {
-			if(!IsCorrectSymbol(token)) {
-				std::cerr << "ERROR: invalid character!" << std::endl;
-				exit(1);
-			}
-		}
-		index_stream = 0;
-
-		while(token = stream[index_stream++]) {
-			if(IsMinus(token)) {
-				if(IsDigit(stream[index_stream])) {
-					number1 = GetNumber(0);
-				}
-				else {
-					std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
-					exit(1);
-				}
-			}
-			else if(IsDigit(token)) {
-				index_stream--;
-				number1 = GetNumber(1);
-			}
-			else if(IsSpace(token)) {
-				if((IsMinus(stream[index_stream]) && IsDigit(stream[index_stream + 1])) || IsDigit(stream[index_stream])) {
-					token = stream[index_stream];
-					if(IsMinus(token)) {
-						index_stream++;
-						number2 = GetNumber(0);
-					}
-					else if(IsDigit(token)) {
-						number2 = GetNumber(1);
-					}
-				}
-				else {
-					std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
-					exit(1);
-				}
-			}
-		}
-		if(!IsSegment(number1, number2)) {
-			std::cerr << "ERROR: the beginning of the segment must be less than the end!" << std::endl;
-			exit(1);
-		}
-		else {
-			starts[i] = number1;
-			ends[i]   = number2;
-		}
+		ConvertToSegments(i);
 	}
 	SortSegments(NUM_SEGMENTS);
 
-	std::cout << "Result:" << std::endl;
+	std::cout << "\n";
+	std::cout << "RESULT:" << std::endl;
+	std::cout << "\n";
 	double glob_start = starts[0];
 	double glob_end   = ends[0];
 	if(NUM_SEGMENTS == 1) {
@@ -178,9 +199,19 @@ void GetResultFromConsole() {
 		}
 		std::cout << glob_start << " " << glob_end << std::endl;
 	}
-
+	delete[] starts;
+	delete[] ends;
 }
-
-void GetResultFromFile() {
+void GetResultFromConsole(const char * namefile) {
+	std::cin.getline(stream, STREAM_SIZE - 1); // водим вол-во отрезков
+	int NUM_SEGMENTS = GetNumberSegments();
+	starts = new double[NUM_SEGMENTS];
+	ends   = new double[NUM_SEGMENTS];
+	for(int i = 0; i < NUM_SEGMENTS; i++) {
+		std::cin.getline(stream, STREAM_SIZE - 1);
+		ConvertToSegments(i);
+	}
+	SortSegments(NUM_SEGMENTS);
 	
+
 }
