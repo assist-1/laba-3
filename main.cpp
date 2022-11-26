@@ -3,7 +3,7 @@
 #include <fstream>
 
 int main(int argc, char* argv[]) {
-    int n, flag = 0;
+    int n, flag;
     if(argc == 1) {
         std::cin >> n;
         flag = 1;
@@ -11,10 +11,12 @@ int main(int argc, char* argv[]) {
         std::ifstream file (argv[2]);
         file >> n;
         flag = 2;
+        file.close();
     } else if (argc == 5 && strcmp("--fromfile", argv[3])== 0 && strcmp("--tofile", argv[1])== 0) {
         std::ifstream file(argv[4]);
         file >> n;
         flag = 3;
+        file.close();
     } else if ((argc == 3 && strcmp("--tofile", argv[1])== 0)) {
         std::cin >> n;
         flag = 4;
@@ -22,6 +24,7 @@ int main(int argc, char* argv[]) {
         std::ifstream file (argv[2]);
         file >> n;
         flag = 5;
+        file.close();
     } else {
         std::cerr << "Please enter --fromfile or --tofile and the way to them. \nFor example: --fromfile 1.txt --tofile 2.txt" << std::endl;
         exit(0);
@@ -52,6 +55,7 @@ int main(int argc, char* argv[]) {
                 exit(0);
             }
         }
+        file.close();
     } else {
         std::ifstream file(argv[4]);
         file >> n;
@@ -62,6 +66,7 @@ int main(int argc, char* argv[]) {
                 exit(0);
             }
         }
+        file.close();
     }
     for(int i = 0 ; i < n;i++){
         for(int j = 0; j < n - 1; j++){
@@ -117,6 +122,7 @@ int main(int argc, char* argv[]) {
                 file << a[i][0] << " " << a[i][1] << std::endl;
             }
         }
+        file.close();
     } else {
         std::ofstream file(argv[4]);
         if(count == 0){
@@ -126,6 +132,7 @@ int main(int argc, char* argv[]) {
                 file << a[i][0] << " " << a[i][1] << std::endl;
             }
         }
+        file.close();
     }
     for (int i = 0; i < n;i++)
         delete [] a[i];
