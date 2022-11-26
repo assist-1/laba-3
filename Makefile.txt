@@ -1,0 +1,17 @@
+TARGET = lab_3
+CC=g++
+CFLAGS = -c
+
+SOURCES = main.cpp
+OBJ = $(SOURCES: .cpp=.o)
+
+all: $(TARGET) 
+
+$(TARGET): $(OBJ)
+	$(CC) $(OBJ) -o $(TARGET)
+
+%.o : %.cpp
+	$(CC) $(CFLAGS) $< -o $@	
+
+clean:
+	rm -rf *.o $(TARGET)
