@@ -1,0 +1,4 @@
+Cannot generate into C:\Users\proko\CLionProjects\lab5
+It is already used for project \mnt\c\Users\proko\CLionProjects\lab5
+
+Please either delete it manually or select another generation directory

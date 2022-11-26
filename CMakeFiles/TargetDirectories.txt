@@ -1,0 +1,9 @@
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/func.h.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/lab5.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/test.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/edit_cache.dir
+/mnt/c/Users/proko/CLionProjects/lab5/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/proko/CLionProjects/lab5/googletests/CMakeFiles/testing.dir
+/mnt/c/Users/proko/CLionProjects/lab5/googletests/CMakeFiles/test.dir
+/mnt/c/Users/proko/CLionProjects/lab5/googletests/CMakeFiles/edit_cache.dir
+/mnt/c/Users/proko/CLionProjects/lab5/googletests/CMakeFiles/rebuild_cache.dir
