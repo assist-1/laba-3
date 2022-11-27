@@ -51,8 +51,8 @@ void ToFile(char *namefile){
     char sentences[numSentences][maxLen];  //Объявляем два массива, в одном будут хранится предложения и их длины
     int lengths[numSentences]; //Во втором длины, но с связью с первым массивом
     std::ifstream in_temp_file ("temp_file.txt"); //Из файла посимвольно записываем предложения в массив, а также их длины
-    for (int i = 0; i < numSentences; ++i) { //Проходимся двойным циклом, если предложение закончилось, то мы
-        for (int k = 0; k < maxLen; ++k) { // В массив длин записываем длину предл.
+    for (int i = 0; i < numSentences; i++) { //Проходимся двойным циклом, если предложение закончилось, то мы
+        for (int k = 0; k < maxLen; k++) { // В массив длин записываем длину предл.
             in_temp_file.get(cur_char);
             if (cur_char == '\n') {
                 sentences[i][k] = '\0';
@@ -77,7 +77,7 @@ void ToFile(char *namefile){
             }
         }
     }
-    for (int i = 0; i < numSentences; ++i)
+    for (int i = 0; i < numSentences; i++)
         result_file << sentences[i] << "   " << lengths[i] << endl;
     maxSent << sentences[numSentences-1] << endl;
     result_file.close();
@@ -113,8 +113,8 @@ void FromFile(char *namefile) { //Фром файл c задаванием по�
     char sentences[numSentences][maxLen];
     int lengths[numSentences];
     std::ifstream in_temp_file ("temp_file.txt");
-    for (int i = 0; i < numSentences; ++i) {
-        for (int k = 0; k < maxLen; ++k) {
+    for (int i = 0; i < numSentences; i++) {
+        for (int k = 0; k < maxLen; k++) {
             in_temp_file.get(cur_char);
             if (cur_char == '\n') {
                 sentences[i][k] = '\0';
@@ -144,10 +144,9 @@ void FromFile(char *namefile) { //Фром файл c задаванием по�
     maxSent << sentences[numSentences-1] <<  endl;
 }
 void FromAndToFile(char *in_file, char *to_file){
-    std::ofstream out_temp_file ("temp_file.txt");
+    std::ofstream out_temp_file("temp_file.txt");
     std::ifstream input_file (in_file);
     std::ofstream result_file(to_file);
-    std::ofstream maxSent ("maxSent.txt");
     char cur_char = '0';
     char prev_char = 'a';
     int curLen = 0;
@@ -175,8 +174,8 @@ void FromAndToFile(char *in_file, char *to_file){
     char sentences[numSentences][maxLen];
     int lengths[numSentences];
     std::ifstream in_temp_file ("temp_file.txt");
-    for (int i = 0; i < numSentences; ++i) {
-        for (int k = 0; k < maxLen; ++k) {
+    for (int i = 0; i < numSentences; i++) {
+        for (int k = 0; k < maxLen; k++) {
             in_temp_file.get(cur_char);
             if (cur_char == '\n') {
                 sentences[i][k] = '\0';
@@ -201,9 +200,8 @@ void FromAndToFile(char *in_file, char *to_file){
             }
         }
     }
-    for (int i = 0; i < numSentences; ++i)
+    for (int i = 0; i < numSentences; i++)
         result_file << sentences[i] << "   " << lengths[i] << endl;
-    maxSent << sentences[numSentences-1]  << endl;
 }
 void Nine(){
     std::ifstream input_file("maxSent.txt");
