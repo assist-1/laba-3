@@ -1,7 +1,5 @@
 #include <iostream>
-#include <fstream>
 #include <math.h>
-#include <fstream>
 #include <cstring>
 #include <fstream>
 using std::cout;
@@ -24,6 +22,8 @@ void ToFile(){
             prev_char = '.';
             out_temp_file << ".\n";
         }
+        else if (cur_char == ' ' && prev_char == '.')
+            continue;
 
         else {                 //Иначе просто считываем символ из файла, увеличивая длину
             out_temp_file << cur_char;
@@ -49,10 +49,11 @@ void ToFile(){
         }
     }
     in_temp_file.close();
-
+    for (int i = 0; i < numSentences; ++i)
+        result_file << sentences[i] << "   " << lengths[i] << endl;
 
     int temp = 0;
-    char temps[numSentences+1];
+    char temps[numSentences];
     char stream[500];
     char token;
     int ind = 0;
@@ -75,7 +76,7 @@ void ToFile(){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
-
+    result_file.close();
 }
 void ToFile(char *namefile){
     std::ofstream out_temp_file ("temp_file.txt"); // Создаем промежуточный файл
@@ -93,6 +94,8 @@ void ToFile(char *namefile){
             prev_char = '.';
             out_temp_file << ".\n";
         }
+        else if (cur_char == ' ' && prev_char == '.')
+            continue;
 
         else {                 //Иначе просто считываем символ из файла, увеличивая длину
             out_temp_file << cur_char;
@@ -118,10 +121,11 @@ void ToFile(char *namefile){
         }
     }
     in_temp_file.close();
-
+    for (int i = 0; i < numSentences; ++i)
+        result_file << sentences[i] << "   " << lengths[i] << endl;
 
     int temp = 0;
-    char temps[numSentences+1];
+    char temps[numSentences];
     char stream[500];
     char token;
     int ind = 0;
@@ -144,9 +148,9 @@ void ToFile(char *namefile){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
-
+    result_file.close();
 }
-void FromFile() {}
+void FromFile() {
 
     std::ofstream out_temp_file ("temp_file.txt");
     std::ifstream input_file ("input_file.txt");
@@ -190,7 +194,7 @@ void FromFile() {}
     }
     in_temp_file.close();
     int temp = 0;
-    char temps[numSentences+1];
+    char temps[numSentences];
     char stream[500];
     char token;
     int ind = 0;
@@ -213,5 +217,4 @@ void FromFile() {}
     }
     for (int i = 0; i < numSentences; ++i)
         cout << sentences[i] << "   " << lengths[i] << endl;
-    return 0;
 }
