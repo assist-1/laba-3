@@ -53,27 +53,21 @@ void ToFile(){
         result_file << sentences[i] << "   " << lengths[i] << endl;
 
     int temp = 0;
-    char temps[numSentences];
-    char stream[500];
-    char token;
-    int ind = 0;
-    for (int i = 0; i < numSentences;i++){
-        for (int j = 0; j < numSentences - i - 1;j++){
-            if (lengths[j] > lengths[j+1]){
+    char temps[maxLen];
+    for (int i = 1; i < numSentences;i++){
+        int j = i - 1;
+        while (j>=0 && lengths[j] > lengths[j+1]){
                 temp = lengths[j];
                 lengths[j] = lengths[j+1];
                 lengths[j+1] = temp;
-                while (token = sentences[j][ind++])
-                    stream[ind - 1] = token;
-                ind = 0;
-                while(token = sentences[j + 1][ind++])
-                    sentences[j][ind - 1] = token;
-                ind = 0;
-                while(token = stream[ind++])
-                    sentences[j + 1][ind - 1] = token;
+                strcpy(temps,sentences[j]);
+                strcpy(sentences[j],sentences[j+1]);
+                strcpy(sentences[j+1],temps);
+                j--;
+
             }
         }
-    }
+
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
     result_file.close();
@@ -129,23 +123,19 @@ void ToFile(char *namefile){
     char stream[500];
     char token;
     int ind = 0;
-    for (int i = 0; i < numSentences;i++){
-        for (int j = 0; j < numSentences - i - 1;j++){
-            if (lengths[j] > lengths[j+1]){
+    for (int i = 1; i < numSentences;i++){
+        int j = i - 1;
+        while (j>=0 && lengths[j] > lengths[j+1]){
                 temp = lengths[j];
                 lengths[j] = lengths[j+1];
                 lengths[j+1] = temp;
-                while (token = sentences[j][ind++])
-                    stream[ind - 1] = token;
-                ind = 0;
-                while(token = sentences[j + 1][ind++])
-                    sentences[j][ind - 1] = token;
-                ind = 0;
-                while(token = stream[ind++])
-                    sentences[j + 1][ind - 1] = token;
+                strcpy(temps,sentences[j]);
+                strcpy(sentences[j],sentences[j+1]);
+                strcpy(sentences[j+1],temps);
+                j--;
+
             }
         }
-    }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
     result_file.close();
@@ -194,7 +184,7 @@ void FromFile() {
     }
     in_temp_file.close();
     int temp = 0;
-    char temps[numSentences];
+    char temps[maxLen];
     char stream[500];
     char token;
     int ind = 0;
@@ -212,6 +202,7 @@ void FromFile() {
                 ind = 0;
                 while(token = stream[ind++])
                     sentences[j + 1][ind - 1] = token;
+
             }
         }
     }
