@@ -9,7 +9,6 @@ void convertToArray(bool fileOrConsole,char convertedText[20][20][40]){ //file=1
         text.open("FileWithText.txt");
         if(text.is_open()){
             lever=true;
-            //std::cout << "CHECK" << std::endl;
         }
     }
     char character;
@@ -19,7 +18,6 @@ void convertToArray(bool fileOrConsole,char convertedText[20][20][40]){ //file=1
         do{
             if(lever) character= text.get();
             character = getchar();
-            //std::cout << character << std::endl;
             if(character == ' '){
                 if(lastWasDot){
                     lastWasDot=false;dotIsHere=true;continue; //пропускаем пробел после .
@@ -56,7 +54,6 @@ void convertToArray(bool fileOrConsole,char convertedText[20][20][40]){ //file=1
     if (lever){
         do{
             character= text.get();
-            //std::cout << character << std::endl;
             if(character == ' '){
                 if(lastWasDot){
                     lastWasDot=false;dotIsHere=true;continue; //пропускаем пробел после .
@@ -105,7 +102,6 @@ void strangePrint(char text[20][20][40]){
                 std::cout<< text[k][j][i];
             }
             if (brake) {brake=false;break;}
-            //std::cout <<' ';
         }
         brake = false;
         std::cout << '\n';
@@ -117,7 +113,6 @@ void countLength(int Length[20],char text[20][20][40]){
     bool brake = false;
     for(int i=0;i<20;i++){Length[i]=0;}
     for(int k=0;k<20;k++){
-        //Length[k]++;
         if(text[k][0][0]=='&') {break;}
         for(int j=0;j<20;j++){
             for(int i=0;i<40;i++){
@@ -127,7 +122,6 @@ void countLength(int Length[20],char text[20][20][40]){
                 Length[k]++;
             }
             if (brake) {brake=false;break;}
-            //Length[k]++;
         }
         brake = false;
     }
@@ -164,7 +158,6 @@ void printReverseSentence(int SentenceNumber,char text[20][20][40]){
         }
         if (brake) {brake=false;break;}
     }
-    //std::cout<< storage<<std::endl;
     
     for(int i=storage;i>=0;i--){
         for(int j=0;j<40;j++){
