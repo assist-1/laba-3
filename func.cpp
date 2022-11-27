@@ -79,7 +79,7 @@ void ToFile(char *namefile){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
-    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
+    maxSent << sentences[numSentences-1] << endl;
     result_file.close();
 }
 void FromFile(char *namefile) { //Фром файл c задаванием пользователем файла
@@ -141,7 +141,7 @@ void FromFile(char *namefile) { //Фром файл c задаванием по�
     }
     for (int i = 0; i < numSentences; ++i)
         cout << sentences[i] << "   " << lengths[i] << endl;
-    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
+    maxSent << sentences[numSentences-1] <<  endl;
 }
 void FromAndToFile(char *in_file, char *to_file){
     std::ofstream out_temp_file ("temp_file.txt");
@@ -203,7 +203,7 @@ void FromAndToFile(char *in_file, char *to_file){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
-    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
+    maxSent << sentences[numSentences-1]  << endl;
 }
 void Nine(){
     std::ifstream input_file("maxSent.txt");
@@ -212,19 +212,16 @@ void Nine(){
     char prev_char = 'a';
     int curLen = 0;
     int maxLen = 0;
-    int numWords = 0;
-    while (input_file.get(cur_char) && cur_char != '\n'){
-        if (cur_char == '\0'){
+    int numWords = 1;
+    while (input_file.get(cur_char)){
+        if (cur_char == ' '){
             numWords+=1;
             maxLen = std::max(++curLen, maxLen);
             curLen = 0;
-            prev_char = '\0';
-            temp << " \n";
+            temp << "\n";
         }
-        else if (prev_char == '\0') continue;
         else {
             temp << cur_char;
-            prev_char = cur_char;
             curLen++;
     }
     }
@@ -234,20 +231,25 @@ void Nine(){
     char words[numWords][maxLen];
     std::ifstream tempor ("tempfile.txt");
     std::ofstream res_file("nine.txt");
-    for (int i = 0; i< numWords;++i){
-        for (int j = 0; j< maxLen;++j){
+    for (int i = 0; i< numWords;i++){
+        for (int j = 0; j< maxLen;j++){
             tempor.get(cur_char);
-                if (cur_char == '\n') {
+            if (cur_char == '\n') {
                     words[i][j] = '\0';
                     break;
                 }
+            if (cur_char!='.'){
+
                 words[i][j] = cur_char;
+                }
     }
     }
-    for (int i = numWords-1; i>0; i--){
-        for (int j = 0; j < maxLen;j++){
-            res_file << (words[i][j]);
-    }
+    char token;
+    for (int i = numWords-1;i>=0;i--){
+        int j = 0;
+        while (token = words[i][j++]){
+            res_file << token;
+        }
         res_file << " ";
     }
     tempor.close();
