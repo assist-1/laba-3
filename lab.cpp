@@ -15,9 +15,13 @@ int main(int argc, char** argv) {
     char tofile_name[32] = {0};
     int fromfile = 0;
     char text[1024];
+    int check = 0;
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
 			if ((std::strcmp(argv[i], "--tofile")) == 0) {
+                if (!std::strlen(tofile_name)){
+                    check++;
+                }
                 if (i + 1 >= argc || (fp = fopen(argv[i+1], "r")) == NULL) {
                     if (i + 1 >= argc || argv[i+1][0] == '-') {
                         std::ofstream oFile ( "tofile.txt" );
@@ -33,6 +37,9 @@ int main(int argc, char** argv) {
                 }
 			}
 			else if ((std::strcmp(argv[i], "--fromfile")) == 0) {
+                if (!fromfile){
+                    check++;
+                }
 				if (i + 1 >= argc || (fp = fopen(argv[i+1], "r")) == NULL) {
                     fromfile = -1;
                 } else {
@@ -42,7 +49,7 @@ int main(int argc, char** argv) {
 			}
 		}
     }
-    if (fromfile >= 0) {
+    if (fromfile >= 0 && check == argc - 1) {
         if (fromfile == 0) {
             read_from_terminal(text);
         } else {
@@ -50,7 +57,7 @@ int main(int argc, char** argv) {
         }
         sort_and_out(text, tofile_name);
     } else {
-        std::cout << "Incorrect file for reading\n";
+        std::cout << "Incorrect file for reading OR flag\n";
     }
     return 0;
 }

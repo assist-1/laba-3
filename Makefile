@@ -1,6 +1,6 @@
 G++ = g++
 
-all: lab_3
+all: distclean lab_3
 
 lab_3:
 	$(G++) lab.cpp -o lab_3
