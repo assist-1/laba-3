@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "sort.cpp"
-#include "parse.cpp"
+// #include "parse.cpp"
 
 bool* get_args(int argc, char* argv[]) {
     static bool flags[2] = {false, true};
@@ -9,6 +9,28 @@ bool* get_args(int argc, char* argv[]) {
     return flags;
 }
 
+
+float max(float a, float b) {
+    if (a >= b) return a;
+    else return b;
+}
+
+
+int parse(float lower[], int n1, float upper[], int n2, 
+            float ans_low[], int n3, float ans_up[], int n4) {
+    
+    int ans_count = 0;
+    bool intersected = false;
+    for (int i = 0; i < n1 - 1; ++i) {
+        if (lower[i] <= lower[i + 1] <= upper[i]) {
+            ans_low[ans_count] = lower[i];
+            ans_up[ans_count] = max(upper[i], upper[i + 1]);
+            intersected = true;
+        }
+    }
+
+    return ans_count;
+}
 
 int main(int argc, char* argv[]) {
     bool* flags = get_args(argc, argv);
@@ -27,16 +49,15 @@ int main(int argc, char* argv[]) {
     }
 
     sort(lower, T, upper, T);
-
-    for (int i = 0; i < T; ++i) {
-        std::cout << lower[i] << '\t' << upper[i] << std::endl;
-    }
     
     int ans_maxlen = T / 2 + 1;
     float* ans_lower = new float[ans_maxlen];
     float* ans_upper = new float[ans_maxlen];
     
-    parse(lower, T, upper, T, ans_lower, ans_maxlen, ans_upper, ans_maxlen);
-
-    return 0;
+    
+    int ans_n = parse(lower, T, upper, T, ans_lower, ans_maxlen, ans_upper, ans_maxlen);
+    
+    for (int i = 0; i < ans_n; ++i) {
+        std::cout << ans_lower[ans_n] << '\t' << ans_upper[ans_n] << std::endl;
+    }
 }
