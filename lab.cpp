@@ -8,20 +8,16 @@ void sort_and_out(const char *text, char *tofile);
 int get_point_coord(const char *text, int *points);
 int find_min(int *lenght, int counter);
 void print_to_terminal(int points, const char *text);
-void print_to_file(int points, const char *text, char* tofile, FILE* fp);
+void print_to_file(int points, const char *text, FILE* fp);
 
 int main(int argc, char** argv) {
     FILE* fp;
     char tofile_name[32] = {0};
     int fromfile = 0;
     char text[1024];
-    int check = 0;
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
 			if ((std::strcmp(argv[i], "--tofile")) == 0) {
-                if (!std::strlen(tofile_name)){
-                    check++;
-                }
                 if (i + 1 >= argc || (fp = fopen(argv[i+1], "r")) == NULL) {
                     if (i + 1 >= argc || argv[i+1][0] == '-') {
                         std::ofstream oFile ( "tofile.txt" );
@@ -37,9 +33,6 @@ int main(int argc, char** argv) {
                 }
 			}
 			else if ((std::strcmp(argv[i], "--fromfile")) == 0) {
-                if (!fromfile){
-                    check++;
-                }
 				if (i + 1 >= argc || (fp = fopen(argv[i+1], "r")) == NULL) {
                     fromfile = -1;
                 } else {
@@ -49,7 +42,7 @@ int main(int argc, char** argv) {
 			}
 		}
     }
-    if (fromfile >= 0 && check == argc - 1) {
+    if (fromfile >= 0) {
         if (fromfile == 0) {
             read_from_terminal(text);
         } else {
@@ -112,12 +105,12 @@ void sort_and_out(const char *text, char *tofile) {
             print_to_terminal(points[j], text);
             std::cout << '\n';
         } else {
-            print_to_file(points[j], text, tofile, fp);
+            print_to_file(points[j], text, fp);
             if (l < counter - 1) {
                 fprintf(fp, "%c", '\n');
             }
         }
-        lenght[j] = 900;
+        lenght[j] = 2048;
     }
     if (flag) {
         fclose(fp);
@@ -127,7 +120,8 @@ void sort_and_out(const char *text, char *tofile) {
 int get_point_coord(const char *text, int *points) {
     int j = 0;
     int k = 0;
-    for (j = 0; j < std::strlen(text); j++) {
+    int len = std::strlen(text);
+    for (j = 0; j < len; j++) {
         if (text[j] == '.') {
             points[k] = j;
             k++;
@@ -166,7 +160,7 @@ void print_to_terminal(int points, const char *text) {
     }
 }
 
-void print_to_file(int points, const char *text, char* tofile, FILE* fp) {
+void print_to_file(int points, const char *text, FILE* fp) {
     int flag = 0;
     int j = points - 1;
     while (text[j - 1] != '.' && j != -1 && flag == 0) {
