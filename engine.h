@@ -1,0 +1,1 @@
+void doIt(char* fromFileName, bool toFile, char* toFileName);
