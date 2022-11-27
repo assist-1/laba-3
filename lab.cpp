@@ -7,7 +7,8 @@ void read_from_file(FILE* fp, char *filename, char* text);
 void sort_and_out(const char *text, char *tofile);
 int get_point_coord(const char *text, int *points);
 int find_min(int *lenght, int counter);
-void print(int points, const char *text);
+void print_to_terminal(int points, const char *text);
+void print_to_file(int points, const char *text, char* tofile, FILE* fp);
 
 int main(int argc, char** argv) {
     FILE* fp;
@@ -76,6 +77,7 @@ void sort_and_out(const char *text, char *tofile) {
     counter = get_point_coord(text, points);
     int flag;
     int lenght[128] = {0};
+    FILE* fp;
     for (int k = 0; k < counter; k++) {
         flag = 0;
         j = points[k] - 1;
@@ -92,11 +94,26 @@ void sort_and_out(const char *text, char *tofile) {
             } 
         }
     }
+    flag = 0;
+    flag = std::strlen(tofile);
+    if (flag) {
+        fp = fopen(tofile, "w");
+    }
     for (int l = 0; l < counter; l++) {
         j = find_min(lenght, counter);
-        print(points[j], text);
-        std::cout << '\n';
+        if (!flag) {
+            print_to_terminal(points[j], text);
+            std::cout << '\n';
+        } else {
+            print_to_file(points[j], text, tofile, fp);
+            if (l < counter - 1) {
+                fprintf(fp, "%c", '\n');
+            }
+        }
         lenght[j] = 900;
+    }
+    if (flag) {
+        fclose(fp);
     }
 }
 
@@ -122,7 +139,7 @@ int find_min(int *lenght, int counter) {
     return min;
 }
 
-void print(int points, const char *text) {
+void print_to_terminal(int points, const char *text) {
     int flag = 0;
     int j = points - 1;
     while (text[j - 1] != '.' && j != -1 && flag == 0) {
@@ -133,11 +150,31 @@ void print(int points, const char *text) {
         }
     }
     for (int h = j; h < points + 1; h++) {
-        if (text[h] == '\n') {
-            //std::cout << ' ';
+        if (text[h] == '\n' && text[h + 1] != ' ' && text[h - 1] != ' ' && text[h-1] != '.') {
+            std::cout << ' ';
         } 
         else if (text[h] != '\n'){
             std::cout << text[h];
+        }
+    }
+}
+
+void print_to_file(int points, const char *text, char* tofile, FILE* fp) {
+    int flag = 0;
+    int j = points - 1;
+    while (text[j - 1] != '.' && j != -1 && flag == 0) {
+        j--;
+        if (text[j - 1] == '.' && text[j] == ' ') {
+            flag = 1;
+            j++;
+        }
+    }
+    for (int h = j; h < points + 1; h++) {
+        if (text[h] == '\n' && text[h + 1] != ' ' && text[h - 1] != ' ' && text[h-1] != '.') {
+            fprintf(fp, "%c", ' ');
+        } 
+        else if (text[h] != '\n' && text[h] != '\0'){
+            fprintf(fp, "%c", text[h]);
         }
     }
 }
