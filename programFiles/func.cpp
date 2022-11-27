@@ -189,11 +189,9 @@ void printAnswer(int Length[20],char text[20][20][40],bool toFile){
         if(check){
             minimum=100;
             Length[minStorage]=0;
-            //std::cout<<minStorage<<std::endl;
             check = false;
             printSentence(minStorage,text,toFile,answersFile);
         }
     }
-    //std::cout <<"MaxStorage:"<<maxStorage<<std::endl;
     printReverseSentence(maxStorage,text);
 }
