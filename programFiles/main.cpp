@@ -12,15 +12,7 @@ int main(int argc,char** argv){
     char convertedText[20][20][40];
     int length[20];
     convertToArray(fromFile,convertedText);
-    //strangePrint(convertedText);
     countLength(length,convertedText);
-    /*for(int i=0;i<20;i++){
-        std::cout<<length[i]<<' ';
-    }*/
-    //std::cout << std::endl;
-    //printSentence(2,convertedText);
     printAnswer(length,convertedText,toFile);
-    //printReverseSentence(2,convertedText);
-    //printSentence(2,convertedText);
     return 0;
 }
