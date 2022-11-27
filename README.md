@@ -1,2 +1,1 @@
-В2 -- САРКИСЯНЦ ЮРИЙ -- СКБ221
-Telegram: t.me/yur1y_snc
+#2 Саркисянц Юрий 221 https://t.me/yur1y_snc
