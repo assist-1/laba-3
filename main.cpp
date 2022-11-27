@@ -26,7 +26,10 @@ int main(int argc, char*argv[]){
     }
     else if (argc == 3){
         char *namefile = argv[2];
-        if (!strcmp(argv[1],flags[1]))     ToFile(namefile);
+        if (!strcmp(argv[1],flags[1]))  {
+            ToFile(namefile);
+            Nine();
+        }
         else if (((!strcmp(argv[1],flags[0])) && (!strcmp(argv[2],flags[1]))) ||
                 ((!strcmp(argv[1],flags[1])) && (!strcmp(argv[2],flags[0])))){
                 cerr << "Need to entered name for both files" << endl;;

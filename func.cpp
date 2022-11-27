@@ -23,6 +23,7 @@ void CommonUsage(){
 void ToFile(char *namefile){
     std::ofstream out_temp_file ("temp_file.txt"); // Создаем промежуточный файл
     std::ofstream result_file(namefile); // Создаем файл для записи результата
+    std::ofstream maxSent ("maxSent.txt");
     char cur_char = '0';
     char prev_char = 'a';
     int curLen = 0;
@@ -78,11 +79,13 @@ void ToFile(char *namefile){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
+    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
     result_file.close();
 }
 void FromFile(char *namefile) { //Фром файл c задаванием пользователем файла
     std::ofstream out_temp_file ("temp_file.txt");
     std::ifstream input_file (namefile);
+    std::ofstream maxSent ("maxSent.txt");
     char cur_char = '0';
     char prev_char = 'a';
     int curLen = 0;
@@ -138,11 +141,13 @@ void FromFile(char *namefile) { //Фром файл c задаванием по�
     }
     for (int i = 0; i < numSentences; ++i)
         cout << sentences[i] << "   " << lengths[i] << endl;
+    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
 }
 void FromAndToFile(char *in_file, char *to_file){
     std::ofstream out_temp_file ("temp_file.txt");
     std::ifstream input_file (in_file);
     std::ofstream result_file(to_file);
+    std::ofstream maxSent ("maxSent.txt");
     char cur_char = '0';
     char prev_char = 'a';
     int curLen = 0;
@@ -198,4 +203,52 @@ void FromAndToFile(char *in_file, char *to_file){
     }
     for (int i = 0; i < numSentences; ++i)
         result_file << sentences[i] << "   " << lengths[i] << endl;
+    maxSent << sentences[numSentences-1] << lengths[numSentences-1] << endl;
+}
+void Nine(){
+    std::ifstream input_file("maxSent.txt");
+    std::ofstream temp("tempfile.txt");
+    char cur_char = '0';
+    char prev_char = 'a';
+    int curLen = 0;
+    int maxLen = 0;
+    int numWords = 0;
+    while (input_file.get(cur_char) && cur_char != '\n'){
+        if (cur_char == '\0'){
+            numWords+=1;
+            maxLen = std::max(++curLen, maxLen);
+            curLen = 0;
+            prev_char = '\0';
+            temp << " \n";
+        }
+        else if (prev_char == '\0') continue;
+        else {
+            temp << cur_char;
+            prev_char = cur_char;
+            curLen++;
+    }
+    }
+    input_file.close();
+    temp.close();
+    maxLen++;
+    char words[numWords][maxLen];
+    std::ifstream tempor ("tempfile.txt");
+    std::ofstream res_file("nine.txt");
+    for (int i = 0; i< numWords;++i){
+        for (int j = 0; j< maxLen;++j){
+            tempor.get(cur_char);
+                if (cur_char == '\n') {
+                    words[i][j] = '\0';
+                    break;
+                }
+                words[i][j] = cur_char;
+    }
+    }
+    for (int i = numWords-1; i>0; i--){
+        for (int j = 0; j < maxLen;j++){
+            res_file << (words[i][j]);
+    }
+        res_file << " ";
+    }
+    tempor.close();
 }
