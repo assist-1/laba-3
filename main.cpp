@@ -118,5 +118,23 @@ int main(int argc, char** argv) {
         }
     }
 
+    //доп задание на 9
+    int end = dots[dots_count - 1][2];
+    std::ofstream nine_out("NINE.txt");
+    for(int j = dots[dots_count - 1][2]; j >= dots[dots_count - 1][1]; --j){
+        if(str[j] == ' ' || str[j] == ',' || str[j] == ':' || str[j] == ';'){
+            for(int jj = j + 1; jj < end; ++jj){
+                nine_out << str[jj];
+            }
+            if(end - (j + 1) >= 1) {nine_out << ' ';}
+            end = j;
+        }
+        if(j == dots[dots_count - 1][1]){
+            for(int jj = j; jj < end; ++jj){
+                nine_out << str[jj];
+            }
+        }
+    }
+
     return 0;
 }
