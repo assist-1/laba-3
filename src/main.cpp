@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     std::ifstream input(input_path);
     std::ofstream output(output_path);
 
-    if (!input) {
+    if (!input && flags[0]) {
         std::cerr << "Wrong input file name. Try again." << std::endl;
         exit(-1);
     }
