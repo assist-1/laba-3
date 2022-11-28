@@ -75,4 +75,5 @@ int main(int argc, char* argv[]) {
     }
     if (flags[0]) input.close();
     if (flags[1]) output.close();
+    return 1;
 }
