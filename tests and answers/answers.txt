@@ -1,0 +1,66 @@
+РЕЗУЛЬТАТ ПРОГРАММЫ ПОСЛЕ ТЕСТОВ:
+1) 
+out.txt:
+It was released on 26 November 1865.
+It has been adapted to numerous movies.
+Charles Lutwidge Dodgson wrote the book.
+He wrote it using the pen name Lewis Carroll.
+John Tenniel drew the 42 pictures in the book.
+In 2010, it has been adapted to Hollywood movie.
+The book was published by Macmillan and Co in London.
+The title is usually shortened to Alice in Wonderland.
+Alice's Adventures in Wonderland is a children's novel.
+
+nine.txt:
+novel children's a is Wonderland in Adventures Alice's.
+
+2)
+out.txt:
+It was released on 26 November 1865.
+It has been adapted to numerous movies.
+Charles Lutwidge Dodgson wrote the book.
+He wrote it using the pen name Lewis Carroll.
+John Tenniel drew the 42 pictures in the book.
+In 2010, it has been adapted to Hollywood movie.
+The book was published by Macmillan and Co in London.
+The title is usually shortened to Alice in Wonderland.
+Alice's Adventures in Wonderland is a children's novel.
+
+nine.txt:
+novel children's a is Wonderland in Adventures Alice's.
+3)
+В консоли:
+"Error of entry!"
+То есть, как и положено, после точки должен быть пробел(или '\n' в нашем случае)
+4)
+В консоли:
+"BUFFER OVERFLOW!"
+Ввод ограничен 1024 символами по длине строки и количетсвом в 100 предложений.
+5)
+В консоли:
+"Error of entry!"
+Аналогично третьему тесту. Все предложения должны оканчиваться точкой и только ей.
+6)
+out.txt:
+kek.
+hi     kik.
+
+nine.txt:
+kik     hi.
+Данный тест показывает, что лишние пробелы тоже символы.
+7)
+При компиляции:
+./main --tofile
+программа будет ожидать ввода, оканчивающимся '/'.
+8)
+При компиляции:
+./main --fromfile "filename.txt"
+программа сработает для данного файла.
+9)
+При компиляции:
+./main --fromfile "filename.txt" --tofile
+программа сработает для данного файла и ввведенных предложений(оканчивающихся '/').
+10)
+При любой другой компиляции или добавления лишних аргументов:
+"WRONG!! ENTER"
+Введенные команды для программы попросту неизвестны.
