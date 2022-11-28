@@ -1,0 +1,4 @@
+﻿  ConsoleApplication3.cpp
+ConsoleApplication3.obj : error LNK2019: ссылка на неразрешенный внешний символ "void __cdecl sort(float * const,float * const,int)" (?sort@@YAXQEAM0H@Z) в функции main.
+ConsoleApplication3.obj : error LNK2019: ссылка на неразрешенный внешний символ "void __cdecl output(char *,float * const,float * const,int)" (?output@@YAXPEADQEAM1H@Z) в функции main.
+C:\Users\Den\source\repos\ConsoleApplication3\x64\Debug\ConsoleApplication3.exe : fatal error LNK1120: неразрешенных внешних элементов: 2
