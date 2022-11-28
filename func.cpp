@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <fstream> 
+#include<cmath>
  
 double* start; 
 double* end; 
@@ -8,25 +9,33 @@ int l;
  
 int read_cin() { 
     std::cin >> l; 
- 
-    start = new double[l]; 
-    end = new double[l]; 
- 
-    for (int i = 0; i < l; ++i){
-        std::cin >> start[i] >> end[i]; 
-        if (start[i] > end[i]){
-            std::cout<< "Wrong numbers";
-            exit(1);
-        }
+    if ((l*10)%10!=0 || l <= 1){
+        std::cout<<" Wrong number of args";
+        exit(1);
+        return 1;
+        
     }
-    data = new double[2 * l]; 
-    for (int i = 0; i < l; i++) { 
-        data[i] = start[i]; 
-    } 
-    for (int i = l; i < 2 * l; i++) { 
-        data[i] = end[i - l]; 
-    } 
-    return 0; 
+    else{
+        start = new double[l]; 
+        end = new double[l]; 
+    
+        for (int i = 0; i < l; ++i){
+            std::cin >> start[i] >> end[i]; 
+            if (start[i] > end[i]){
+                std::cout<< "Wrong numbers";
+                exit(1);
+            }
+        }
+        data = new double[2 * l]; 
+        for (int i = 0; i < l; i++) { 
+            data[i] = start[i]; 
+        } 
+        for (int i = l; i < 2 * l; i++) { 
+            data[i] = end[i - l]; 
+        } 
+        return 0;
+        
+    }
 } 
  
 int read_file() { 
@@ -36,26 +45,34 @@ int read_file() {
         return 1; 
     } 
  
-    file >> l; 
- 
-    start = new double[l]; 
-    end = new double[l]; 
- 
-    for (int i = 0; i < l; ++i) {
-        file >> start[i] >> end[i]; 
-        if (start[i] > end[i]){
-            std::cout<< "Wrong numbers";
-            exit(1);
-        }
+    file >> l;
+    if ((l*10)%10!=0 || l <= 1){
+        std::cout<<" Wrong number of args";
+        exit(1);
+        return 1;
+        
     }
-    data = new double[2 * l]; 
-    for (int i = 0; i < l; i++) { 
-        data[i] = start[i]; 
-    } 
-    for (int i = l; i < 2 * l; i++) { 
-        data[i] = end[i - l]; 
-    } 
-    return 0; 
+    else{
+ 
+        start = new double[l]; 
+        end = new double[l]; 
+    
+        for (int i = 0; i < l; ++i) {
+            file >> start[i] >> end[i]; 
+            if (start[i] > end[i]){
+                std::cout<< "Wrong numbers";
+                exit(1);
+            }
+        }
+        data = new double[2 * l]; 
+        for (int i = 0; i < l; i++) { 
+            data[i] = start[i]; 
+        } 
+        for (int i = l; i < 2 * l; i++) { 
+            data[i] = end[i - l]; 
+        } 
+        return 0; 
+    }
 } 
  
 int poisk(double* M, int r, double zn) 
