@@ -12,9 +12,13 @@ int read_cin() {
     start = new double[l]; 
     end = new double[l]; 
  
-    for (int i = 0; i < l; ++i) 
+    for (int i = 0; i < l; ++i){
         std::cin >> start[i] >> end[i]; 
- 
+        if (start[i] > end[i]){
+            std::cout<< "Wrong numbers";
+            exit(1);
+        }
+    }
     data = new double[2 * l]; 
     for (int i = 0; i < l; i++) { 
         data[i] = start[i]; 
@@ -37,9 +41,13 @@ int read_file() {
     start = new double[l]; 
     end = new double[l]; 
  
-    for (int i = 0; i < l; ++i) 
+    for (int i = 0; i < l; ++i) {
         file >> start[i] >> end[i]; 
- 
+        if (start[i] > end[i]){
+            std::cout<< "Wrong numbers";
+            exit(1);
+        }
+    }
     data = new double[2 * l]; 
     for (int i = 0; i < l; i++) { 
         data[i] = start[i]; 
@@ -78,16 +86,18 @@ double func(int to_file) {
     double low = 100000; 
     int flag = 0; 
     for (int i = 0; i < 2 * l; i++) { 
-        if (poisk(start, l, data[i]) != -1) { 
+        if (poisk(start, l, data[i]) != -1 && (poisk(end, l, data[i]) != -1)) { 
+            flag += 0; 
+        } 
+        if (poisk(start, l, data[i]) != -1 && (poisk(end, l, data[i]) == -1)) { 
             flag += 1; 
         } 
-        else if ((poisk(end, l, data[i]) != -1)) { 
+        else if ((poisk(end, l, data[i]) != -1) && (poisk(start, l, data[i]) == -1)) { 
             flag -= 1; 
-        } 
-        if (flag == 1) { 
-            low = std::min(low, data[i]); 
- 
-        } 
+        }
+        if (flag == 1){
+            low = std::min(low,data[i]);
+        }
         if (flag == 0) { 
             top = std::max(top, data[i]); 
             if (to_file == 0) { 
