@@ -91,21 +91,28 @@ void FromFile(char *namefile) { //Фром файл c задаванием по�
     int curLen = 0;
     int maxLen = 0;
     int numSentences = 0;
-    while (input_file.get(cur_char) && cur_char != '\n') {
-        if (cur_char == '.') {
-            numSentences += 1;
-            maxLen = std::max(++curLen, maxLen);
-            curLen = 0;
-            prev_char = '.';
-            out_temp_file << ".\n";
+    if (input_file.is_open()){
+
+        while (input_file.get(cur_char) && cur_char != '\n') {
+            if (cur_char == '.') {
+                numSentences += 1;
+                maxLen = std::max(++curLen, maxLen);
+                curLen = 0;
+                prev_char = '.';
+                out_temp_file << ".\n";
+            }
+            else if (cur_char == ' ' && prev_char == '.')
+                continue;
+            else {
+                out_temp_file << cur_char;
+                prev_char = cur_char;
+                curLen++;
+            }
         }
-        else if (cur_char == ' ' && prev_char == '.')
-            continue;
-        else {
-            out_temp_file << cur_char;
-            prev_char = cur_char;
-            curLen++;
-        }
+    }
+    else {
+        std::cerr << "The input file not found" << endl;
+        exit(1);
     }
     out_temp_file.close();
     input_file.close();
