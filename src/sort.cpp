@@ -1,4 +1,4 @@
-void sort(float arr1[], int n1, float arr2[], int n2) {
+void bubbleSort(float arr1[], int n1, float arr2[], int n2) {
 	int i, j;
     float temp1, temp2;
 	for (i = 0; i < n1 - 1; i++)

@@ -1,11 +1,9 @@
-float max(float a, float b) {
+float get_max(float a, float b) {
     if (a >= b) return a;
     else return b;
 }
 
-
 float* parse(float lower[], int n1, float upper[], int n2, int* ans_len) {
-    
     int ans_count = -2;
     
     float* ans = new float[*ans_len];
@@ -17,10 +15,10 @@ float* parse(float lower[], int n1, float upper[], int n2, int* ans_len) {
                 *ans_len += 2;
             }
             ans[ans_count] = lower[i];
-            ans[ans_count + 1] = max(upper[i], upper[i + 1]);
+            ans[ans_count + 1] = get_max(upper[i], upper[i + 1]);
 
             lower[i + 1] = lower[i];
-            upper[i + 1] = max(upper[i], upper[i + 1]);
+            upper[i + 1] = get_max(upper[i], upper[i + 1]);
             intersected = true;
         }
         else intersected = false;

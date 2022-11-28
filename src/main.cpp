@@ -4,6 +4,7 @@
 #include "sort.cpp"
 #include "parse.cpp"
 
+
 int main(int argc, char* argv[]) {
     char* input_path;
     char* output_path;
@@ -51,7 +52,7 @@ int main(int argc, char* argv[]) {
         upper[i] = b;
     }
 
-    sort(lower, T, upper, T);
+    bubbleSort(lower, T, upper, T);
     
     int ans_c = 0;
     float* ans = parse(lower, T, upper, T, &ans_c);
