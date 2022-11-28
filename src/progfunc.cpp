@@ -85,8 +85,8 @@ char* prog(char* file_to_read){
     }
 
     char *ans = new char[all_len];
-
-    int k=0;
+    int k =0;    
+    k=0;
 
     for (int i = 0; i<kolvo; i++){
         for(int j = 0; j<dlin[i]; j++){
