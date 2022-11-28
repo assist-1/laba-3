@@ -2,7 +2,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-colors = ["red", "green", "blue", "black", "yellow"]
+colors = ["red", "green", "blue", "black", "yellow", "orange", "purple", "brown", "pink", "gray", "olive", "cyan"]
 
 with open("input.txt", "r") as f:
     n = int(f.readline())

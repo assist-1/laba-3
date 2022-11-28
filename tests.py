@@ -4,7 +4,7 @@ print("TESTS:")
 
 
 f = open("input.txt", "w")
-n = randint(3, 5)
+n = randint(3, 12)
 f.write(str(n) + "\n")
 print(n)
 values = []

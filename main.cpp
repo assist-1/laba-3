@@ -28,15 +28,15 @@ int main(int argc, char* argv[]) {
 
     sort(lower, T, upper, T);
     
-    // for (int i = 0; i < sizeof(*lower); ++i) {
-    //     std::cout << lower[i] << '\t' << upper[i] << std::endl;
-    // }
-
-    std::cout << std::endl;
-    float* ans = parse(lower, T, upper, T);
-    std::cout << std::endl;
+    int ans_c = 0;
+    float* ans = parse(lower, T, upper, T, &ans_c);
     
-    for (int i = 0; i < sizeof(*ans); i += 2) {
-        std::cout << ans[i] << '\t' << ans[i + 1] << std::endl;
+    if (ans_c) {
+        for (int i = 0; i < ans_c; i += 2) {
+            std::cout << ans[i] << ' ' << ans[i + 1] << std::endl;
+        }
+    }
+    else {
+        std::cout << "NOTHING FOUND" << std::endl;
     }
 }
