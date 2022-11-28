@@ -1,0 +1,1 @@
+double min(double a,double b);
