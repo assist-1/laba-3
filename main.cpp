@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     }
 
     //считывание предложений
-    char* str = new char[200];
+    char* str = new char[1000];
     int** dots = new int*[200];
     int i = 0, dots_count = 0;
     int pre_start = 0;
@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
             }
             if(str[i] == '.'){
                 dots[dots_count] = new int[3];
+                while(str[pre_start] == ' '){++pre_start;}
                 dots[dots_count][0] = i - pre_start + 1;
                 dots[dots_count][1] = pre_start; dots[dots_count][2] = i;
                 pre_start = i + 1;
@@ -69,22 +70,33 @@ int main(int argc, char** argv) {
             }
             if(str[i] == '.'){
                 dots[dots_count] = new int[3];
+                while(str[pre_start] == ' '){++pre_start;}
                 dots[dots_count][0] = i - pre_start + 1;
                 dots[dots_count][1] = pre_start; dots[dots_count][2] = i;
                 pre_start = i + 1;
+                ++dots_count;
             }
             ++i;
         }
     }
 
-    //учет неправильно ввода, то есть если предложений нет
+    //учет неправильного ввода, то есть если предложений нет
     if(dots_count == 0){
         std::cerr << "Nothing founnd.";
         return -1;
     }
 
+
     //сортировка и вывод
-    sort(dots, i);
+
+    sort(dots, dots_count);
+    std::cout << "\nAnswer:\n";
+    for(int j = 0; j < dots_count; ++j){
+        for(int jj = dots[j][1]; jj <= dots[j][2]; ++jj){
+            std::cout << str[jj];
+        }
+        std::cout << "\n";
+    }
 
     return 0;
 }
