@@ -17,9 +17,8 @@ int main(int argc, char** argv) {
     //считывание названий файлов при наличие флагов
     char* input_file = new char[50];
     if(args == 1 || args == 3){
-        std::cout << "Please, type a filename to read from.\0";
+        std::cout << "Please, type a filename to read from.\n";
         int i = 0;
-
         while(std::cin >> input_file[i]){
             ++i;
             if(std::cin.peek() == '\n'){
@@ -33,12 +32,20 @@ int main(int argc, char** argv) {
         std::cout << "Please, type a filename to write in.\n";
         int i = 0;
         while(std::cin >> output_file[i]){
+            if(output_file[i] == '\n'){
+                continue;
+            }
             ++i;
             if(std::cin.peek() == '\n'){
                 break;
             }
         }
+        for(int j = 0; j < i; ++j){
+            std::cout << output_file[j];
+        }
+        std::cout << "\n";
     }
+
 
     //считывание предложений
     char* str = new char[1000];
@@ -62,8 +69,10 @@ int main(int argc, char** argv) {
             }
             ++i;
         }
+        input.close();
     }
     else{
+        std::cout << "Please, type an expression. Use ctrl + D at the end of it.\n";
         while(std::cin >> str[i]){
             if(str[i] == '\n'){
                 str[i] = ' ';
@@ -82,20 +91,31 @@ int main(int argc, char** argv) {
 
     //учет неправильного ввода, то есть если предложений нет
     if(dots_count == 0){
-        std::cerr << "Nothing founnd.";
+        std::cerr << "Nothing found.";
         return -1;
     }
 
-
     //сортировка и вывод
-
     sort(dots, dots_count);
-    std::cout << "\nAnswer:\n";
-    for(int j = 0; j < dots_count; ++j){
-        for(int jj = dots[j][1]; jj <= dots[j][2]; ++jj){
-            std::cout << str[jj];
+
+    if(args == 2 || args == 3){
+        std::ofstream output(output_file);
+        for (int j = 0; j < dots_count; ++j) {
+            for (int jj = dots[j][1]; jj <= dots[j][2]; ++jj) {
+                output << str[jj];
+            }
+            output << "\n";
         }
-        std::cout << "\n";
+        output.close();
+
+    } else {
+        std::cout << "\nAnswer:\n";
+        for (int j = 0; j < dots_count; ++j) {
+            for (int jj = dots[j][1]; jj <= dots[j][2]; ++jj) {
+                std::cout << str[jj];
+            }
+            std::cout << "\n";
+        }
     }
 
     return 0;
