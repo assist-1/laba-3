@@ -5,7 +5,7 @@ answer: $(OBJECTS)
 
 .PHONY: clean
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS) DefaultFile.txt
 
 distclean: clean
-	$(RM) answer
+	$(RM) answer DefaultFile.txt

@@ -228,18 +228,25 @@ void SortSegments(int segments_count) {
 void ConvertToSegments(int index_segments) {
 	index_stream = 0;
 	if(token = stream[index_stream]) {
-		while(token = stream[index_stream++]) {
-			if(!IsCorrectSymbol(token)) {
-				std::cerr << "ERROR: invalid character!" << std::endl;
-				exit(1);
+		if(IsDigit(token) || IsMinus(token)) {
+			while(token = stream[index_stream++]) {
+				if(!IsCorrectSymbol(token)) {
+					std::cerr << "ERROR: invalid character!" << std::endl;
+					exit(1);
+				}
 			}
+		}
+		else {
+			std::cerr << "ERROR: segment enteres incorrectly!" << std::endl;
+			exit(1);
 		}
 	}
 	else {
-		std::cerr << "ERROR: segments doesn't endtered" << std::endl;
+		std::cerr << "ERROR: segments doesn't entered" << std::endl;
 		exit(1);
 	}
 	index_stream = 0;
+	int flag = 0;
 	while(token = stream[index_stream++]) {
 		if(IsMinus(token)) {
 			if(IsDigit(stream[index_stream])) {
@@ -255,6 +262,7 @@ void ConvertToSegments(int index_segments) {
 			number1 = GetNumber(1);
 		}
 		else if(IsSpace(token)) {
+			flag = 1;
 			if((IsMinus(stream[index_stream]) && IsDigit(stream[index_stream + 1])) || IsDigit(stream[index_stream])) {
 				token = stream[index_stream];
 				if(IsMinus(token)) {
@@ -270,6 +278,10 @@ void ConvertToSegments(int index_segments) {
 				exit(1);
 			}
 		}
+	}
+	if(!flag) {
+		std::cerr << "ERROR: segment's end doesn't endtered!" << std::endl;
+		exit(1);
 	}
 	if(!IsSegment(number1, number2)) {
 		std::cerr << "ERROR: the beginning of the segment must be less than the end!" << std::endl;
@@ -412,6 +424,10 @@ void GetResultFromFile(const char * namefromfile) { // из файла в кон
 			FromFile.getline(stream, STREAM_SIZE - 1);
 			ConvertToSegments(i);
 		}
+		if(!FromFile.eof()) {
+			std::cerr << "ERROR: number of strings more than number of segments!" << std::endl;
+			exit(1);
+		}
 		SortSegments(NUM_SEGMENTS);
 		SolutionToConsole(NUM_SEGMENTS);
 		FromFile.close();
@@ -444,6 +460,10 @@ void GetResultFromFile(const char * namefromfile, const char * nametofile, int i
 		for(int i = 0; i < NUM_SEGMENTS; i++) {
 			FromFile.getline(stream, STREAM_SIZE - 1);
 			ConvertToSegments(i);
+		}
+		if(!FromFile.eof()) {
+			std::cerr << "ERROR: number of strings more than number of segments!" << std::endl;
+			exit(1);
 		}
 		SortSegments(NUM_SEGMENTS);
 
