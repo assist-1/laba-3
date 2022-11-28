@@ -2,9 +2,9 @@ PY		= python3
 
 test:
 	$(PY) ./tests.py
-	./main
+	./main --fromfile test.txt
 	$(PY) ./plot.py
 
 retry:
-	./main
+	./main --fromfile test.txt
 	$(PY) ./plot.py

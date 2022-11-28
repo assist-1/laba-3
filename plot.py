@@ -4,7 +4,7 @@ import numpy as np
 
 colors = ["red", "green", "blue", "black", "yellow", "orange", "purple", "brown", "pink", "gray", "olive", "cyan"]
 
-with open("input.txt", "r") as f:
+with open("test.txt", "r") as f:
     n = int(f.readline())
     values = [[float(x) for x in line.split()] for line in f.readlines()]
 

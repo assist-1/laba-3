@@ -3,7 +3,7 @@ print("_________")
 print("TESTS:")
 
 
-f = open("input.txt", "w")
+f = open("test.txt", "w")
 n = randint(3, 12)
 f.write(str(n) + "\n")
 print(n)
