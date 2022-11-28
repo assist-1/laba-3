@@ -227,11 +227,17 @@ void SortSegments(int segments_count) {
 */
 void ConvertToSegments(int index_segments) {
 	index_stream = 0;
-	while(token = stream[index_stream++]) {
-		if(!IsCorrectSymbol(token)) {
-			std::cerr << "ERROR: invalid character!" << std::endl;
-			exit(1);
+	if(token = stream[index_stream]) {
+		while(token = stream[index_stream++]) {
+			if(!IsCorrectSymbol(token)) {
+				std::cerr << "ERROR: invalid character!" << std::endl;
+				exit(1);
+			}
 		}
+	}
+	else {
+		std::cerr << "ERROR: segments doesn't endtered" << std::endl;
+		exit(1);
 	}
 	index_stream = 0;
 	while(token = stream[index_stream++]) {
