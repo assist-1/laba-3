@@ -1,0 +1,17 @@
+TARGET = Lab_5_Sorochaykin
+CC=g++
+CFLAGS = -c
+
+SOURCES = main.cpp sortint.cpp sortchar.cpp
+OBJ = $(SOURCES: .cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(OBJ) -o $(TARGET)
+
+%.o : %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf *.o $(TARGET)
