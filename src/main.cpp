@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     if (!input && flags[0]) {
         std::cerr << "Wrong input file name. Try again." << std::endl;
-        exit(-1);
+        return EXIT_FAILURE;
     }
 
     
@@ -48,6 +48,10 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < T; ++i) {
         if (flags[0]) input >> a >> b;
         else std::cin >> a >> b;
+        if (a > b) {
+            std::cerr << "Lower border of a segment must be less than the upper one" << std::endl;
+            return EXIT_FAILURE;
+        }
         lower[i] = a;
         upper[i] = b;
     }
