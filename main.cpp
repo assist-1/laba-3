@@ -136,7 +136,10 @@ int main(int argc, char** argv) {
         }
     }
     delete []str;
-    delete []dots[3];
     delete []input_file; delete []output_file;
+    for(int j = 0; j < dots_count; ++j){
+        delete []dots[j];
+    }
+    delete []dots;
     return 0;
 }
