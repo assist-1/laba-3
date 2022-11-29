@@ -40,10 +40,6 @@ int main(int argc, char** argv) {
                 break;
             }
         }
-        for(int j = 0; j < i; ++j){
-            std::cout << output_file[j];
-        }
-        std::cout << "\n";
     }
 
 
@@ -54,6 +50,10 @@ int main(int argc, char** argv) {
     int pre_start = 0;
     if(args == 1 || args == 3){
         std::ifstream input(input_file);
+        if(!input.is_open()){
+            std::cerr << "Input file doesn't exist.\n";
+            return -1;
+        }
         noskipws(input);
         while(input >> str[i]){
             if(str[i] == '\n'){
@@ -135,6 +135,8 @@ int main(int argc, char** argv) {
             }
         }
     }
-
+    delete []str;
+    delete []dots[3];
+    delete []input_file; delete []output_file;
     return 0;
 }
