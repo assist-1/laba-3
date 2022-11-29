@@ -1,6 +1,6 @@
 make : flags.o otrezki.o
 	g++ -o make flags.o otrezki.o
 clean :
-		rm *.o make
+		rm *.o 
 distclean : clean
 		rm -f make
