@@ -11,6 +11,7 @@ int main(){
     std::ifstream ifs1("./testfiles/test1_ans.txt");
     std::ifstream ifs2("./testfiles/test2_ans.txt");
     std::ifstream ifs3("./testfiles/test3_ans.txt");
+    std::ifstream ifs4("./testfiles/test4_ans.txt");
     
     //TEST_1
     flag = 1;
@@ -69,7 +70,6 @@ int main(){
     delete[] mas3;
     if (flag == 1) std::cout<<"TEST_3 --> passed succesfully"<<std::endl;
     else std::cout<<"TEST_3 --> failed!"<<std::endl;
-
 
     return 0;
 }

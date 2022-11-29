@@ -4,7 +4,7 @@
 
 char* prog(char* file_to_read){
 
-    char sentences[100][100];
+    char sentences[1000][1000];
     int kolvo=0;
     int len=0;
     int maxlen = 0;
