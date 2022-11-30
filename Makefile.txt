@@ -1,4 +1,4 @@
-TARGET = Lab_5_Sorochaykin
+TARGET = Lab_5
 CC=g++
 CFLAGS = -c
 
