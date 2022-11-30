@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "lb5.h"
+
 using std::cin;
 using std::cout;
 using std::endl;

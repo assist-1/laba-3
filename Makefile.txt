@@ -2,7 +2,7 @@ TARGET = Lab_5
 CC=g++
 CFLAGS = -c
 
-SOURCES = main.cpp sortint.cpp sortchar.cpp
+SOURCES = main.cpp sortint.cpp sortchar.cpp reverse.cpp
 OBJ = $(SOURCES: .cpp=.o)
 
 all: $(TARGET)
