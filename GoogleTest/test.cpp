@@ -1,6 +1,14 @@
+/**
+ * \file
+ * \brief Тестированние работы функций.
+ */
+
 #include <gtest/gtest.h>
 #include "/mnt/d/CLionProjects/laba-3/lib.h"
 
+/**
+ * Проверка check_args на правильность возвращаемого выражения при одном аргументе.
+ */
 TEST (CheckArgs, Test1) {
     int len = 1;
     char** a = new char*[1];
@@ -10,6 +18,9 @@ TEST (CheckArgs, Test1) {
     delete []a;
 }
 
+/**
+ * Проверка check_args на правильность возвращаемого выражения при двух аругментах, один из которых --fromfile.
+ */
 TEST (CheckArgs, Test2) {
     int len = 2;
     char** a = new char*[2];
@@ -22,6 +33,10 @@ TEST (CheckArgs, Test2) {
     delete []a[0]; delete []a[1];
     delete []a;
 }
+
+/**
+ * Проверка check_args на правильность возвращаемого выражения при двух аругментах, один из которых --tofile.
+ */
 
 TEST (CheckArgs, Test3) {
     int len = 2;
@@ -36,6 +51,9 @@ TEST (CheckArgs, Test3) {
     delete []a;
 }
 
+/**
+ * Проверка check_args на правильность возвращаемого выражения при двух аругментах, второй из которых неверный.
+ */
 TEST (CheckArgs, Test4) {
     int len = 2;
     char** a = new char*[2];
@@ -48,6 +66,10 @@ TEST (CheckArgs, Test4) {
     delete []a[0]; delete []a[1];
     delete []a;
 }
+
+/**
+ * Проверка check_args на правильность возвращаемого выражения при трех аругментах, второй: "--tofile", третий: "--fromfile".
+ */
 
 TEST (CheckArgs, Test5) {
     int len = 3;
@@ -65,6 +87,10 @@ TEST (CheckArgs, Test5) {
     delete []a;
 }
 
+/**
+ * Проверка check_args на правильность возвращаемого выражения при трех аругментах, второй: "--fromfile", третий: "--tofile".
+ */
+
 TEST (CheckArgs, Test6) {
     int len = 3;
     char** a = new char*[3];
@@ -80,6 +106,10 @@ TEST (CheckArgs, Test6) {
     delete []a[0]; delete []a[1]; delete []a[2];
     delete []a;
 }
+
+/**
+ * Проверка check_args на правильность возвращаемого выражения при трех аругментах, третий неверный.
+ */
 
 TEST (CheckArgs, Test7) {
     int len = 3;
@@ -97,6 +127,10 @@ TEST (CheckArgs, Test7) {
     delete []a;
 }
 
+/**
+ * Проверка check_args на правильность возвращаемого выражения при трех аругментах, второй и третий неверный.
+ */
+
 TEST (CheckArgs, Test8) {
     int len = 3;
     char** a = new char*[3];
@@ -112,6 +146,10 @@ TEST (CheckArgs, Test8) {
     delete []a[0]; delete []a[1]; delete []a[2];
     delete []a;
 }
+
+/**
+ * Проверка check_args на правильность возвращаемого выражения при четерых аругментах.
+ */
 
 TEST (CheckArgs, Test9) {
     int len = 4;
@@ -130,6 +168,10 @@ TEST (CheckArgs, Test9) {
     delete []a[0]; delete []a[1]; delete []a[2]; delete []a[3];
     delete []a;
 }
+
+/**
+ * Проверка сортировки двумерного массива, при длине вложенных массивов 1.
+ */
 
 TEST (CheckSort, Test1){
     int len = 5;
@@ -158,6 +200,10 @@ TEST (CheckSort, Test1){
     delete []answ;
     delete []a;
 }
+
+/**
+ * Проверка сортировки двумерного массива, при длине вложенных массивов 3.
+ */
 
 TEST (CheckSort, Test2){
     int len = 10;
