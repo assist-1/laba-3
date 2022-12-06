@@ -8,5 +8,4 @@ int obrabotka1(int i,int arr[],char*q);
 int rabota(char arr1[],int arr[],int i,char*q);
 int rabota1(char arr1[],int arr[],int i,char*q);
 int rabota2(char arr1[],int arr[],int i);
-int vivod();
 #endif

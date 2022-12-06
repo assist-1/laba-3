@@ -43,7 +43,6 @@ int sort(int arr[],int size) {
     return 0;
 }
 
-
 int obrabotka(int i,int arr[100]){
     int f,sum;
     sum=0;
@@ -104,6 +103,8 @@ int obrabotka2(int i,int arr[100],char*q){
     std::ifstream fin;
     fout.open("1.txt");
     fin.open(q);
+    if (!fin.is_open())
+        return -10000000;
     while (!fin.eof()) {
         c = fin.get();
         if (c=='\n' && p==0)
@@ -157,6 +158,8 @@ int obrabotka1(int i,int arr[100],char*q){
     std::ifstream fin;
     fout.open("1.txt");
     fin.open(q);
+    if (!fin.is_open())
+        return -10000000;
     while (!fin.eof()) {
         c = fin.get();
         if (c=='\n' && p==0)
@@ -166,10 +169,6 @@ int obrabotka1(int i,int arr[100],char*q){
                 fout << " ";
                 sum++;
             }
-            p++;
-        }
-        else if (c=='\n' && p==1)
-        {
             p++;
         }
         else if (c=='.' || c=='!' || c=='?') {
@@ -258,6 +257,7 @@ int rabota2(char arr1[],int arr[],int i) {
     fin.open("1.txt");
     fout.open("123.txt");
     int z=0;
+    int p=0;
     while (n!=i)
     {
         char c=fin.get();
@@ -279,6 +279,7 @@ int rabota2(char arr1[],int arr[],int i) {
                 fin.close();
                 oout.close();
                 fin.open("1.txt");
+                p++;
             }
             sum=0;
         }
@@ -291,6 +292,21 @@ int rabota2(char arr1[],int arr[],int i) {
     fout.close();
     remove("1.txt");
     remove("3.txt");
+    fin.open("123.txt");
+    int y=0;
+    int x=0;
+    while (x<p)
+    {
+        char c=fin.get();
+        if (c=='\n') {
+            y++;
+            x++;
+        }
+        else y=0;
+        if (y!=2)
+            std::cout << c;
+    }
+    fin.close();
     return 0;
 }
 
@@ -306,6 +322,7 @@ int rabota1(char arr1[],int arr[],int i,char*q) {
     fin.open("1.txt");
     fout.open(q);
     int z=0;
+    int p =0;
     while (n!=i)
     {
         char c=fin.get();
@@ -327,6 +344,7 @@ int rabota1(char arr1[],int arr[],int i,char*q) {
                 fin.close();
                 oout.close();
                 fin.open("1.txt");
+                p++;
             }
             sum=0;
         }

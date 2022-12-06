@@ -19,8 +19,14 @@ int main(int argc, char* argv[]) {
         }
         if (strcmp(argv[1], "--fromfile") == 0) {
             int k = obrabotka2(i, arr,argv[2]);
-            if (k == -1000000)
+            if (k==-10000000) {
+                std::cout << "Файл не найден";
+                std::cout << "\n";
+            }
+            else if (k == -1000000) {
                 std::cout << "Ошибка ввода";
+                std::cout << "\n";
+            }
             else {
                 sort(arr, k);
                 char *arr1;
@@ -32,7 +38,11 @@ int main(int argc, char* argv[]) {
     if (argc == 5) {
         if (strcmp(argv[2], "--tofile") == 0 && strcmp(argv[1], "--fromfile") == 0) {
             int k = obrabotka1(i, arr,argv[3]);
-            if (k == -1000000)
+            if (k==-10000000) {
+                std::cout << "Файл не найден";
+                std::cout << "\n";
+            }
+            else if (k == -1000000)
                 std::cout << "Ошибка ввода";
             else {
                 sort(arr, k);
